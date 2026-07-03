@@ -1,7 +1,7 @@
 import ScrollReveal from '../components/ScrollReveal';
-import { lifeContent } from '../data/content';
+import { lifeContent, aboutContent } from '../data/content';
 
-const { dorm, canteen, money, parttime, clubs } = lifeContent;
+const { dorm, canteen, money, parttime, clubs, simCard, driving } = lifeContent;
 
 export default function Life() {
   const dormColors = ['#2ECC71', '#1A73E8', '#FFB347'];
@@ -87,6 +87,60 @@ export default function Life() {
             <div style={card}>
               <h2 style={h2}>{clubs.title}</h2>
               <p style={p}>{clubs.intro}</p>
+            </div>
+          </ScrollReveal>
+
+          {/* 校园卡 */}
+          <ScrollReveal>
+            <div style={card}>
+              <h2 style={h2}>{simCard.title}</h2>
+              <p style={p}>{simCard.intro}</p>
+              {simCard.carriers.map((c, i) => (
+                <div key={i} style={{ padding: '16px', marginBottom: 10, background: '#F8F9FC', borderRadius: 12 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
+                    <span style={{ fontSize: '1.3rem' }}>{c.icon}</span>
+                    <span style={{ fontWeight: 700, fontSize: '1.05rem' }}>{c.name}</span>
+                  </div>
+                  <p style={{ fontSize: '0.88rem', color: '#636E72', marginBottom: 4 }}>📶 {c.signal}</p>
+                  <p style={{ fontSize: '0.88rem', color: '#636E72', marginBottom: 6 }}>💳 {c.typicalPlan}</p>
+                  <p style={{ fontSize: '0.85rem', color: '#FF6B35', fontWeight: 500, background: '#FFF8F5', padding: '8px 12px', borderRadius: 8 }}>💬 学长说实话：{c.realTalk}</p>
+                </div>
+              ))}
+              {simCard.tips.map((t, i) => (
+                <p key={i} style={{ fontSize: '0.9rem', color: '#636E72', padding: '4px 0' }}>💡 {t}</p>
+              ))}
+              <div style={{ marginTop: 16, padding: '18px', background: 'linear-gradient(135deg, #FFF3E0, #FFE8D0)', borderRadius: 12, textAlign: 'center' }}>
+                <p style={{ fontWeight: 600, color: '#FF6B35', marginBottom: 8 }}>{simCard.cta}</p>
+                <p style={{ fontSize: '1.2rem', fontWeight: 700, color: '#FF6B35' }}>📱 {aboutContent.contact.phone}</p>
+              </div>
+            </div>
+          </ScrollReveal>
+
+          {/* 驾校 */}
+          <ScrollReveal>
+            <div style={card}>
+              <h2 style={h2}>{driving.title}</h2>
+              <p style={p}>{driving.intro}</p>
+              <div style={{ marginBottom: 16 }}>
+                <h3 style={{ fontSize: '1.05rem', fontWeight: 700, marginBottom: 8 }}>{driving.shouldYou.title}</h3>
+                {driving.shouldYou.items.map((item, i) => (
+                  <p key={i} style={{ fontSize: '0.92rem', color: '#636E72', padding: '4px 0' }}>✅ {item}</p>
+                ))}
+              </div>
+              <div>
+                <h3 style={{ fontSize: '1.05rem', fontWeight: 700, marginBottom: 10 }}>{driving.shaoyangSchools.title}</h3>
+                <p style={{ fontSize: '0.92rem', color: '#636E72', marginBottom: 12 }}>{driving.shaoyangSchools.intro}</p>
+                {driving.shaoyangSchools.tips.map((t, i) => (
+                  <div key={i} style={{ padding: '12px 14px', marginBottom: 8, background: '#F8F9FC', borderRadius: 10, borderLeft: '3px solid #1A73E8' }}>
+                    <span style={{ fontWeight: 700, fontSize: '0.92rem' }}>{t.title}：</span>
+                    <span style={{ fontSize: '0.88rem', color: '#636E72' }}>{t.desc}</span>
+                  </div>
+                ))}
+              </div>
+              <div style={{ marginTop: 16, padding: '18px', background: 'linear-gradient(135deg, #FFF3E0, #FFE8D0)', borderRadius: 12, textAlign: 'center' }}>
+                <p style={{ fontWeight: 600, color: '#FF6B35', marginBottom: 8 }}>{driving.cta}</p>
+                <p style={{ fontSize: '1.2rem', fontWeight: 700, color: '#FF6B35' }}>📱 {aboutContent.contact.phone}</p>
+              </div>
             </div>
           </ScrollReveal>
 
