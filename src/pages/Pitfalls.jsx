@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import ScrollReveal from '../components/ScrollReveal';
-import { pitfallsContent, aboutContent } from '../data/content';
+import { pitfallsContent } from '../data/content';
 
 export default function Pitfalls() {
   const [openCat, setOpenCat] = useState(null);
@@ -58,14 +58,6 @@ export default function Pitfalls() {
                         )}
                       </div>
                     ))}
-                    {ci === 0 && (
-                      <div style={{ marginTop: 16, padding: '16px', background: 'linear-gradient(135deg, #FFF3E0, #FFE8D0)', borderRadius: 12, textAlign: 'center' }}>
-                        <p style={{ fontWeight: 600, color: '#FF6B35', marginBottom: 6 }}>
-                          办卡、报驾校怕被坑？直接加学长微信帮你把关 👇
-                        </p>
-                        <p style={{ fontSize: '1.1rem', fontWeight: 700, color: '#FF6B35' }}>📱 {aboutContent.contact.phone}</p>
-                      </div>
-                    )}
                   </div>
                 )}
               </div>

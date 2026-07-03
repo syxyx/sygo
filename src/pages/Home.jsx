@@ -134,28 +134,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 引流横幅 */}
-      <section style={{ padding: '0 24px 40px' }}>
-        <div className="container" style={{ maxWidth: 800 }}>
-          <ScrollReveal>
-            <div style={{
-              padding: '24px 28px', background: 'linear-gradient(135deg, #FFF8F5, #FFF0E8)',
-              borderRadius: 16, border: '1px solid #FFE0D0', textAlign: 'center',
-            }}>
-              <p style={{ fontSize: '1.05rem', fontWeight: 700, color: '#2D3436', marginBottom: 6 }}>
-                📱 办校园卡 · 🚗 报驾校
-              </p>
-              <p style={{ fontSize: '0.95rem', color: '#636E72', marginBottom: 10 }}>
-                不知道选哪家？怕被坑？加学长微信，帮你避坑+推荐靠谱的
-              </p>
-              <p style={{ fontSize: '1.3rem', fontWeight: 800, color: '#FF6B35' }}>
-                📞 {homeContent.contactPhone}
-              </p>
-            </div>
-          </ScrollReveal>
-        </div>
-      </section>
-
       {/* CTA */}
       <section style={{ padding: '0 24px 80px' }}>
         <div className="container" style={{ textAlign: 'center' }}>
