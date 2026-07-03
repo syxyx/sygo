@@ -95,15 +95,23 @@ export default function Life() {
             <div style={card}>
               <h2 style={h2}>{simCard.title}</h2>
               <p style={p}>{simCard.intro}</p>
-              {simCard.carriers.map((c, i) => (
-                <div key={i} style={{ padding: '16px', marginBottom: 10, background: '#F8F9FC', borderRadius: 12 }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
-                    <span style={{ fontSize: '1.3rem' }}>{c.icon}</span>
-                    <span style={{ fontWeight: 700, fontSize: '1.05rem' }}>{c.name}</span>
+              <div style={{ padding: '14px 18px', marginBottom: 20, background: '#F0F4FF', borderRadius: 12, borderLeft: '4px solid #1A73E8' }}>
+                <span style={{ fontWeight: 700, fontSize: '1rem' }}>{simCard.carrierIcon} {simCard.carrierName}</span>
+                <span style={{ fontSize: '0.85rem', color: '#636E72', marginLeft: 8 }}>— {simCard.officialNote}</span>
+              </div>
+              {simCard.plans.map((plan, i) => (
+                <div key={i} style={{ padding: '20px', marginBottom: 12, background: i === 1 ? '#FFF8F5' : '#F8F9FC', borderRadius: 12, border: i === 1 ? '2px solid #FF6B35' : '1px solid #E2E8F0' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+                    <div>
+                      <span style={{ fontWeight: 700, fontSize: '1.1rem' }}>{plan.name}</span>
+                      <span style={{ fontSize: '0.85rem', color: '#A0AEC0', marginLeft: 8 }}>{plan.desc}</span>
+                    </div>
+                    <span style={{ fontWeight: 800, fontSize: '1.2rem', color: '#FF6B35' }}>{plan.price}</span>
                   </div>
-                  <p style={{ fontSize: '0.88rem', color: '#636E72', marginBottom: 4 }}>📶 {c.signal}</p>
-                  <p style={{ fontSize: '0.88rem', color: '#636E72', marginBottom: 6 }}>💳 {c.typicalPlan}</p>
-                  <p style={{ fontSize: '0.85rem', color: '#FF6B35', fontWeight: 500, background: '#FFF8F5', padding: '8px 12px', borderRadius: 8 }}>💬 学长说实话：{c.realTalk}</p>
+                  {plan.features.map((f, j) => (
+                    <p key={j} style={{ fontSize: '0.9rem', color: '#636E72', padding: '3px 0' }}>✅ {f}</p>
+                  ))}
+                  <p style={{ fontSize: '0.85rem', color: '#FF6B35', fontWeight: 500, marginTop: 8 }}>💡 适合：{plan.recommended}</p>
                 </div>
               ))}
               {simCard.tips.map((t, i) => (
