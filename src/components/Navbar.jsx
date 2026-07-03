@@ -5,13 +5,12 @@ import './Navbar.css';
 
 const navLinks = [
   { path: '/', label: '首页' },
-  { path: '/about', label: '学校概况' },
-  { path: '/campus', label: '校园风光' },
-  { path: '/majors', label: '院系专业' },
-  { path: '/admissions', label: '招生信息' },
+  { path: '/prepare', label: '入学准备' },
   { path: '/life', label: '校园生活' },
-  { path: '/guide', label: '新生指南' },
-  { path: '/faq', label: '常见问题' },
+  { path: '/pitfalls', label: '避坑指南' },
+  { path: '/majors', label: '专业解读' },
+  { path: '/qa', label: '百问百答' },
+  { path: '/about', label: '关于' },
 ];
 
 export default function Navbar() {
