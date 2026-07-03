@@ -1,43 +1,9 @@
 import { useState } from 'react';
 import ScrollReveal from '../components/ScrollReveal';
-import { qaContent } from '../data/content';
-
-// Web3Forms 配置 —— 去 web3forms.com 注册后把 key 填进来
-const WEB3FORMS_KEY = '0d83701c-f235-4254-b2eb-1f4c85f8909a';
+import { qaContent, aboutContent } from '../data/content';
 
 export default function QA() {
   const [openIndex, setOpenIndex] = useState(null);
-  const [formSent, setFormSent] = useState(false);
-  const [sending, setSending] = useState(false);
-  const [question, setQuestion] = useState('');
-  const [contact, setContact] = useState('');
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setSending(true);
-
-    try {
-      const res = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          access_key: WEB3FORMS_KEY,
-          subject: '百问百答 - 新生提问',
-          question: question,
-          contact: contact || '未留联系方式',
-        }),
-      });
-      const data = await res.json();
-      if (data.success) {
-        setFormSent(true);
-      } else {
-        throw new Error(data.message);
-      }
-    } catch {
-      alert('发送失败，你可以直接在关于页面加学长微信~');
-    }
-    setSending(false);
-  };
 
   return (
     <>
@@ -91,56 +57,28 @@ export default function QA() {
             ))}
           </div>
 
-          {/* 提问表单 */}
+          {/* 加微信 */}
           <ScrollReveal>
             <div style={{
               background: 'linear-gradient(135deg, #F8F9FC, #FFF3E0)', borderRadius: 20,
               padding: '40px 32px', textAlign: 'center',
             }}>
-              {!formSent ? (
-                <>
-                  <h3 style={{ fontSize: '1.3rem', fontWeight: 700, marginBottom: 8 }}>📝 没找到你的问题？</h3>
-                  <p style={{ color: '#A0AEC0', marginBottom: 24 }}>在下面留言，学长看到会回复你</p>
-                  <form onSubmit={handleSubmit} style={{ maxWidth: 480, margin: '0 auto' }}>
-                    <input
-                      type="text"
-                      name="question"
-                      placeholder="你的问题（比如：大一能考四级吗？）"
-                      required
-                      value={question}
-                      onChange={(e) => setQuestion(e.target.value)}
-                      style={{
-                        width: '100%', padding: '14px 18px', borderRadius: 12, border: '1px solid #E2E8F0',
-                        fontSize: '0.95rem', fontFamily: 'inherit', marginBottom: 12, outline: 'none',
-                      }}
-                    />
-                    <input
-                      type="text"
-                      name="contact"
-                      placeholder="你的微信号或手机号（方便回复你）"
-                      value={contact}
-                      onChange={(e) => setContact(e.target.value)}
-                      style={{
-                        width: '100%', padding: '14px 18px', borderRadius: 12, border: '1px solid #E2E8F0',
-                        fontSize: '0.95rem', fontFamily: 'inherit', marginBottom: 16, outline: 'none',
-                      }}
-                    />
-                    <button type="submit" disabled={sending} style={{
-                      width: '100%', padding: '14px', borderRadius: 12, border: 'none',
-                      background: sending ? '#A0AEC0' : 'linear-gradient(135deg, #FF6B35, #FF416C)',
-                      color: '#fff', fontWeight: 700, fontSize: '1rem', cursor: sending ? 'not-allowed' : 'pointer',
-                    }}>
-                      {sending ? '发送中...' : '提交问题'}
-                    </button>
-                  </form>
-                </>
-              ) : (
-                <div>
-                  <span style={{ fontSize: '3rem', display: 'block', marginBottom: 12 }}>✅</span>
-                  <h3 style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: 8 }}>收到啦！</h3>
-                  <p style={{ color: '#636E72' }}>学长看到后会尽快回复你，注意查看微信~</p>
-                </div>
-              )}
+              <span style={{ fontSize: '3rem', display: 'block', marginBottom: 12 }}>🙋</span>
+              <h3 style={{ fontSize: '1.3rem', fontWeight: 700, marginBottom: 8 }}>还有问题？直接问学长</h3>
+              <p style={{ color: '#636E72', marginBottom: 20, lineHeight: 1.7 }}>
+                没找到答案？加学长微信，有问题直接问<br />
+                平时也会在朋友圈分享校园干货~
+              </p>
+              <div style={{
+                display: 'inline-block', background: 'linear-gradient(135deg, #FF6B35, #FF416C)',
+                borderRadius: 16, padding: '20px 36px', color: '#fff',
+              }}>
+                <p style={{ fontSize: '0.9rem', opacity: 0.85, marginBottom: 6 }}>📱 学长微信</p>
+                <p style={{ fontSize: '1.6rem', fontWeight: 900, letterSpacing: 1 }}>{aboutContent.contact.phone}</p>
+              </div>
+              <p style={{ color: '#A0AEC0', fontSize: '0.85rem', marginTop: 16 }}>
+                添加时备注"新生"，学长通过更快哦
+              </p>
             </div>
           </ScrollReveal>
         </div>
