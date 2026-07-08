@@ -9,6 +9,7 @@ import Pitfalls from './pages/Pitfalls';
 import Majors from './pages/Majors';
 import QA from './pages/QA';
 import About from './pages/About';
+import NotFound from './pages/NotFound';
 
 export default function App() {
   return (
@@ -23,6 +24,7 @@ export default function App() {
           <Route path="/majors" element={<Majors />} />
           <Route path="/qa" element={<QA />} />
           <Route path="/about" element={<About />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
       <Footer />
