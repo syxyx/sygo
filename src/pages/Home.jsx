@@ -119,7 +119,7 @@ export default function Home() {
       <section style={{ padding: '0 24px 60px' }}>
         <div className="container">
           <ScrollReveal>
-            <h2 className="section-title">📷 校园风光</h2>
+            <h2 className="section-title">📷 校园实拍</h2>
             <p className="section-subtitle">先带你云逛一圈邵院~</p>
           </ScrollReveal>
           <ScrollReveal>
