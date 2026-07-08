@@ -7,11 +7,11 @@ const navLinks = [
   { path: '/', label: '首页' },
   { path: '/prepare', label: '入学准备' },
   { path: '/life', label: '校园生活' },
+  { path: 'https://fcdh.hnsyu.edu.cn/campus-map-web/index?login=cas&loginSys=index', label: '🗺️ 校园地图', external: true },
   { path: '/pitfalls', label: '避坑指南' },
   { path: '/majors', label: '专业解读' },
   { path: '/qa', label: '百问百答' },
   { path: '/about', label: '关于' },
-  { path: 'https://fcdh.hnsyu.edu.cn/campus-map-web/index?login=cas&loginSys=index', label: '🗺️ 校园地图', external: true },
 ];
 
 export default function Navbar() {
