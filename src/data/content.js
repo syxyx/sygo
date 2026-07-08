@@ -39,7 +39,7 @@ export const prepareContent = {
     title: '🎒 这些东西一定要带',
     intro: '别啥都往行李箱塞，很多东西学校都能买到。下面只说必须带的。',
     must: [
-      { item: '录取通知书', note: '最重要的证件，忘带白跑一趟', emoji: '📋' },
+      { item: '录取通知书', note: '和身份证一起放随身包里，别塞行李箱深处', emoji: '📋' },
       { item: '身份证原件', note: '走到哪都要用', emoji: '🪪' },
       { item: '个人档案', note: '千万别自己拆开！拆了学校不收', emoji: '📁' },
       { item: '寸照', note: '推荐白蓝红底各打印几张', emoji: '📸' },
