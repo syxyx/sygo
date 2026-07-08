@@ -8,10 +8,10 @@ import searchIndex from '../data/searchIndex';
 
 // 校园实拍图片 - 替换为真实照片：把图片放到 public/images/campus/ 目录下
 const campusImages = [
-  { src: '/images/campus/gate.svg', caption: '东门（超越门）' },
-  { src: '/images/campus/library.svg', caption: '北一门' },
-  { src: '/images/campus/teaching-building.svg', caption: '北二门' },
-  { src: '/images/campus/overview.svg', caption: '北三门' },
+  { src: '/images/campus/%E4%B8%9C%E9%97%A8%EF%BC%88%E8%B6%85%E8%B6%8A%E9%97%A8).png', caption: '东门（超越门）' },
+  { src: '/images/campus/%E5%8C%97%E4%B8%80%E9%97%A8.png', caption: '北一门' },
+  { src: '/images/campus/%E5%8C%97%E4%BA%8C%E9%97%A8.png', caption: '北二门' },
+  { src: '/images/campus/%E5%8C%97%E4%B8%89%E9%97%A8.png', caption: '北三门' },
   { src: '/images/campus/playground.svg', caption: '图书馆' },
   { src: '/images/campus/campus-road.svg', caption: '教学楼' },
 ];
