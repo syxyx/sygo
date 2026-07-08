@@ -14,10 +14,10 @@ const dormImages = [
 
 // 食堂实拍图片
 const canteenImages = [
-  { src: '/sysc/images/canteen/liuxiang.svg', caption: '留香食堂' },
-  { src: '/sysc/images/canteen/yixiang.svg', caption: '溢香食堂' },
-  { src: '/sysc/images/canteen/xinxiang.svg', caption: '馨香食堂' },
-  { src: '/sysc/images/canteen/xingxiang.svg', caption: '杏香食堂' },
+  { src: '/sysc/images/canteen/liuxiang.jpg', caption: '留香食堂' },
+  { src: '/sysc/images/canteen/yixiang.jpg', caption: '溢香食堂' },
+  { src: '/sysc/images/canteen/xinxiang.jpg', caption: '馨香食堂' },
+  { src: '/sysc/images/canteen/xingxiang.jpg', caption: '杏香食堂' },
 ];
 
 export default function Life() {
