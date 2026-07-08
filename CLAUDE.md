@@ -29,39 +29,52 @@ shaoyang-university-guide/
 │   ├── index.css               # 全局样式 + CSS 变量
 │   ├── data/content.js         # 所有页面内容数据
 │   ├── data/searchIndex.js     # 搜索索引
-│   ├── components/             # Navbar, Footer, ScrollReveal, BackToTop, SearchBar
+│   ├── components/             # Navbar, Footer, ScrollReveal, BackToTop, SearchBar, Countdown, ImageGallery
 │   └── pages/                  # Home, Prepare, Life, Pitfalls, Majors, QA, About
 ```
 
-## 最新改动（2026-07-04~05）
-- **联系方式统一改为微信**：首页CTA、页脚、关于页面、百问百答全部用📱微信，不再提"电话"
-- **校园卡和驾校内容已添加后删除**：用户决定暂不在网站介绍这些业务
-- **所有微信入口显示号码 15364075803**，提示"备注新生"
+## 最新改动（2026-07-08）
 
-## 校园经济方向
+### 图片系统
+- **14张真实照片已上线**：校园实拍6张（东门/北一二三门/图书馆/教学楼）、宿舍4张（乐山/采芹/杏林/泮水）、食堂4张（留香/溢香/馨香/杏香）
+- **新增组件**：`ImageGallery.jsx`（图片画廊，支持点击放大lightbox、键盘翻页）、`Countdown.jsx`（开学倒计时）
+- **图片路径铁律**：必须用 `/sysc/images/...` 前缀（因为 GitHub Pages 部署在子路径下），英文文件名（中文文件名会404）
+- **图片压缩流程**：用 sharp 库压缩 PNG→JPG，resize 1200x800 + quality 80，压缩率约95%
 
-### 业务定位
-- **开学主推**：校园卡（电信）、驾校
-- **用户意愿**：不出镜做抖音IP，靠截流+网站承接流量
+### 页面内容修改
+- **入学准备**：重写必带清单（8项）、不用带清单、删掉天气板块、军训时间改2周、交通强调不要买邵阳北站
+- **校园生活-宿舍**：从四/六/八人间改为按公寓介绍（乐山/采芹/泮水/杏林）
+- **校园生活-食堂**：修正为七里坪4个+李子园思源，tips加后街前街
+- **百问百答**：精简回答、删第8题、新增14个问题（上床下桌/空调/早晚自习/校园跑/外卖/洗衣机/热水/电瓶车/限电/银行卡/超市/快递/共享单车/门禁）
+- **校园地图**：导航栏添加 🗺️ 校园地图，链接到学校3D地图，新标签页打开
 
-### 竞品分析
-- 邵阳学院抖音学长号最大约8000粉（小涛学长 SYXYxiaotao01），赛道无垄断
-- 全国参考案例：
-  - **曹阳康**（衡阳师范学院）：驾校做到副校长，季度300+学员，年销售额200万
-  - **程松**（"百度学长"）：从驾校到校园卡到床品多元变现
-- **差异化优势**：用户有网站，其他邵院学长号没有。截流→网站→信任→加微信的链路别人复制不了
-
-### 引流策略
-- **主策略**：抖音评论区截流 → 个人主页网站链接 → 网站深度内容建立信任 → 加微信
-- **不出镜内容形式**：校园实拍+配音、图文笔记、录屏讲解、盘点对比
-- **截流评论原则**：帮人回答问题，不硬广，引导点主页而非直接甩链接
+### 新功能
+- **开学倒计时**：首页校园实拍上方，目标2026年9月13日
+- **校园地图入口**：导航栏"校园生活"后面，外部链接用 `<a>` 而非 `<Link>`
 
 ## 部署注意事项
 1. **GitHub 推送**：SSH 方式（`git@github.com:HHX111-CMD/sysc.git`）
-2. **SSH 密钥**：已生成 `~/.ssh/id_ed25519`，已添加到 GitHub 账号
-3. **GitHub Actions 偶发部署失败**：重推一次触发新部署即可
-4. **页面空白**：必须同时配置 vite.config.js base 和 HashRouter
-5. **Web3Forms 尝试失败**：确认邮件未收到，最终改回直接加微信
+2. **图片路径必须有 /sysc/ 前缀**：代码中写 `/sysc/images/xxx.jpg`，不能用 `/images/xxx.jpg`
+3. **图片文件名用英文**：中文文件名会导致 GitHub Pages 404
+4. **GitHub Actions 偶发部署失败**：重推一次触发新部署即可
+5. **页面空白**：必须同时配置 vite.config.js base 和 HashRouter
+
+## 图片管理
+
+### 添加新图片流程
+1. 把原始图片（png/jpg）放到 `public/images/对应文件夹/`
+2. 用 sharp 压缩：`npx sharp` resize 1200x800, jpeg quality 80
+3. 删除原始大文件和旧 svg 占位图
+4. 代码中引用：`{ src: '/sysc/images/xxx/yyy.jpg', caption: '标题' }`
+5. `npm run build` → `git add .` → `git commit` → `git push`
+
+### 当前图片清单
+```
+public/images/
+├── campus/     gate-east.jpg, gate-north1/2/3.jpg, library.jpg, teaching-building.jpg
+├── dorm/       leshan.jpg, caiqin.jpg, xinglin.jpg, panyong.jpg
+└── canteen/    liuxiang.jpg, yixiang.jpg, xinxiang.jpg, xingxiang.jpg
+```
 
 ## 用户偏好
 - 所有交流使用中文
@@ -70,8 +83,10 @@ shaoyang-university-guide/
 - 不出镜做IP，不主动拍视频，靠截流获取流量
 
 ## 待办
-- [ ] 网站加图片（用户有现成图片，待放入 public 目录）
+- [x] 网站加图片（14张真实照片已上线）
 - [ ] 微信分享优化（Open Graph 标签）
 - [ ] 每个攻略页面底部统一加微信入口
 - [ ] 抖音注册账号，开始评论区截流
 - [ ] 网站首页加"分享给同学"引导
+- [ ] 清理 HeroSection 死代码
+- [ ] 添加 404 页面
