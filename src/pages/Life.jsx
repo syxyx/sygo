@@ -4,12 +4,12 @@ import { lifeContent } from '../data/content';
 
 const { dorm, canteen, money, parttime, clubs } = lifeContent;
 
-// 宿舍图片 - 替换为真实照片：把图片放到 public/images/dorm/ 目录下
+// 宿舍实拍图片
 const dormImages = [
-  { src: '/sysc/images/dorm/4-bed.svg', caption: '乐山公寓' },
-  { src: '/sysc/images/dorm/6-bed.svg', caption: '采芹公寓' },
-  { src: '/sysc/images/dorm/building.svg', caption: '杏林公寓' },
-  { src: '/sysc/images/dorm/building.svg', caption: '泮水公寓' },
+  { src: '/sysc/images/dorm/leshan.jpg', caption: '乐山公寓' },
+  { src: '/sysc/images/dorm/caiqin.jpg', caption: '采芹公寓' },
+  { src: '/sysc/images/dorm/xinglin.jpg', caption: '杏林公寓' },
+  { src: '/sysc/images/dorm/panyong.jpg', caption: '泮水公寓' },
 ];
 
 // 食堂图片 - 替换为真实照片：把图片放到 public/images/canteen/ 目录下
