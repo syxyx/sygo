@@ -122,7 +122,7 @@ export default function Home() {
         <div className="container" style={{ textAlign: 'center' }}>
           <ScrollReveal>
             <h2 className="section-title">⏳ 距离开学还有</h2>
-            <p className="section-subtitle" style={{ marginBottom: 24 }}>2026年9月1日，期待与你相见！</p>
+            <p className="section-subtitle" style={{ marginBottom: 24 }}>2026年9月13日，期待与你相见！</p>
             <Countdown />
           </ScrollReveal>
         </div>
