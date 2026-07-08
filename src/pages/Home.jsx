@@ -138,20 +138,37 @@ export default function Home() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 20 }}>
             {homeContent.features.map((f, i) => (
               <ScrollReveal key={i}>
-                <Link to={f.to} style={{
-                  display: 'flex', alignItems: 'flex-start', gap: 16, padding: '28px 24px',
-                  background: '#fff', borderRadius: 16, boxShadow: '0 4px 16px rgba(0,0,0,0.06)',
-                  transition: 'all 0.3s', border: '1px solid transparent',
-                }}
-                  onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.borderColor = '#FF6B35'; }}
-                  onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.borderColor = 'transparent'; }}
-                >
-                  <span style={{ fontSize: '2rem', flexShrink: 0 }}>{f.icon}</span>
-                  <div>
-                    <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: 4, color: '#2D3436' }}>{f.title}</h3>
-                    <p style={{ fontSize: '0.9rem', color: '#A0AEC0', lineHeight: 1.5 }}>{f.desc}</p>
-                  </div>
-                </Link>
+                {f.external ? (
+                  <a href={f.to} target="_blank" rel="noopener noreferrer" style={{
+                    display: 'flex', alignItems: 'flex-start', gap: 16, padding: '28px 24px',
+                    background: '#fff', borderRadius: 16, boxShadow: '0 4px 16px rgba(0,0,0,0.06)',
+                    transition: 'all 0.3s', border: '1px solid transparent',
+                  }}
+                    onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.borderColor = '#FF6B35'; }}
+                    onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.borderColor = 'transparent'; }}
+                  >
+                    <span style={{ fontSize: '2rem', flexShrink: 0 }}>{f.icon}</span>
+                    <div>
+                      <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: 4, color: '#2D3436' }}>{f.title}</h3>
+                      <p style={{ fontSize: '0.9rem', color: '#A0AEC0', lineHeight: 1.5 }}>{f.desc}</p>
+                    </div>
+                  </a>
+                ) : (
+                  <Link to={f.to} style={{
+                    display: 'flex', alignItems: 'flex-start', gap: 16, padding: '28px 24px',
+                    background: '#fff', borderRadius: 16, boxShadow: '0 4px 16px rgba(0,0,0,0.06)',
+                    transition: 'all 0.3s', border: '1px solid transparent',
+                  }}
+                    onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.borderColor = '#FF6B35'; }}
+                    onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.borderColor = 'transparent'; }}
+                  >
+                    <span style={{ fontSize: '2rem', flexShrink: 0 }}>{f.icon}</span>
+                    <div>
+                      <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: 4, color: '#2D3436' }}>{f.title}</h3>
+                      <p style={{ fontSize: '0.9rem', color: '#A0AEC0', lineHeight: 1.5 }}>{f.desc}</p>
+                    </div>
+                  </Link>
+                )}
               </ScrollReveal>
             ))}
           </div>

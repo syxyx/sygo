@@ -28,6 +28,7 @@ export const homeContent = {
     { icon: '📖', title: '专业解读', desc: '不官方的专业介绍，说人话', to: '/majors' },
     { icon: '💬', title: '百问百答', desc: '有啥问啥，学长在线解答', to: '/qa' },
     { icon: '🙋', title: '关于本站', desc: '谁在帮你、怎么联系', to: '/about' },
+    { icon: '🗺️', title: '校园地图', desc: '3D校园导览，报到不迷路', to: 'https://fcdh.hnsyu.edu.cn/campus-map-web/index?login=cas&loginSys=index', external: true },
   ],
   contactPhone: '15364075803',
 };
