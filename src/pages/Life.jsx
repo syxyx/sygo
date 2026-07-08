@@ -12,10 +12,12 @@ const dormImages = [
   { src: '/sysc/images/dorm/panyong.jpg', caption: '泮水公寓' },
 ];
 
-// 食堂图片 - 替换为真实照片：把图片放到 public/images/canteen/ 目录下
+// 食堂实拍图片
 const canteenImages = [
-  { src: '/sysc/images/canteen/canteen1.svg', caption: '食堂内景 · 干净明亮' },
-  { src: '/sysc/images/canteen/canteen2.svg', caption: '丰富多样的菜品' },
+  { src: '/sysc/images/canteen/liuxiang.svg', caption: '留香食堂' },
+  { src: '/sysc/images/canteen/yixiang.svg', caption: '溢香食堂' },
+  { src: '/sysc/images/canteen/xinxiang.svg', caption: '馨香食堂' },
+  { src: '/sysc/images/canteen/xingxiang.svg', caption: '杏香食堂' },
 ];
 
 export default function Life() {
