@@ -6,9 +6,10 @@ const { dorm, canteen, money, parttime, clubs } = lifeContent;
 
 // 宿舍图片 - 替换为真实照片：把图片放到 public/images/dorm/ 目录下
 const dormImages = [
-  { src: '/sysc/images/dorm/4-bed.svg', caption: '四人间 · 上床下桌 · 独立卫浴' },
-  { src: '/sysc/images/dorm/6-bed.svg', caption: '六人间 · 空间宽敞' },
-  { src: '/sysc/images/dorm/building.svg', caption: '宿舍楼外观' },
+  { src: '/sysc/images/dorm/4-bed.svg', caption: '乐山公寓' },
+  { src: '/sysc/images/dorm/6-bed.svg', caption: '采芹公寓' },
+  { src: '/sysc/images/dorm/building.svg', caption: '杏林公寓' },
+  { src: '/sysc/images/dorm/building.svg', caption: '泮水公寓' },
 ];
 
 // 食堂图片 - 替换为真实照片：把图片放到 public/images/canteen/ 目录下
