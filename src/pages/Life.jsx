@@ -34,7 +34,7 @@ export default function Life() {
               <p style={p}>{dorm.intro}</p>
               {dorm.types.map((d, i) => (
                 <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 16, padding: '16px', marginBottom: 8, background: '#F8F9FC', borderRadius: 12 }}>
-                  <span style={{ fontSize: '1.5rem' }}>{['🏆','👍','👌'][i]}</span>
+                  <span style={{ fontSize: '1.5rem' }}>{['🏆','🏆','👍','👍'][i]}</span>
                   <div style={{ flex: 1 }}>
                     <div style={{ fontWeight: 700 }}>{d.type} <span style={{ color: '#FF6B35' }}>{d.price}</span></div>
                     <div style={{ fontSize: '0.85rem', color: '#A0AEC0' }}>{d.desc}</div>
