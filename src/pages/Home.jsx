@@ -6,14 +6,14 @@ import Countdown from '../components/Countdown';
 import { homeContent, siteInfo } from '../data/content';
 import searchIndex from '../data/searchIndex';
 
-// 校园风光图片 - 替换为真实照片：把图片放到 public/images/ 目录下
+// 校园实拍图片 - 替换为真实照片：把图片放到 public/images/campus/ 目录下
 const campusImages = [
-  { src: '/images/campus/gate.svg', caption: '邵阳学院校门' },
-  { src: '/images/campus/library.svg', caption: '图书馆 · 学习圣地' },
-  { src: '/images/campus/teaching-building.svg', caption: '教学楼' },
-  { src: '/images/campus/overview.svg', caption: '校园全景' },
-  { src: '/images/campus/playground.svg', caption: '田径场' },
-  { src: '/images/campus/campus-road.svg', caption: '校园林荫道' },
+  { src: '/images/campus/gate.svg', caption: '东门（超越门）' },
+  { src: '/images/campus/library.svg', caption: '北一门' },
+  { src: '/images/campus/teaching-building.svg', caption: '北二门' },
+  { src: '/images/campus/overview.svg', caption: '北三门' },
+  { src: '/images/campus/playground.svg', caption: '图书馆' },
+  { src: '/images/campus/campus-road.svg', caption: '教学楼' },
 ];
 
 export default function Home() {
