@@ -54,8 +54,10 @@ export default function ImageGallery({ images = [], columns = 2, title }) {
                 style={imgStyle}
                 onError={(e) => {
                   e.target.style.display = 'none';
-                  e.target.parentNode.innerHTML =
-                    '<div style="display:flex;align-items:center;justify-content:center;height:200px;background:#F8F9FC;color:#A0AEC0;font-size:0.9rem;border-radius:12px;">📷 图片加载中...</div>';
+                  const placeholder = document.createElement('div');
+                  placeholder.style.cssText = 'display:flex;align-items:center;justify-content:center;height:200px;background:#F8F9FC;color:#A0AEC0;font-size:0.9rem;border-radius:12px;';
+                  placeholder.textContent = '📷 图片加载失败';
+                  e.target.parentNode.appendChild(placeholder);
                 }}
               />
               <div style={zoomHint}>🔍 点击放大</div>

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import searchIndex from '../data/searchIndex';
 import './SearchBar.css';
 
-export default function SearchBar() {
+export default function SearchBar({ variant = 'nav' }) {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
   const [open, setOpen] = useState(false);
@@ -69,19 +69,27 @@ export default function SearchBar() {
     navigate(item.path);
   };
 
+  const isHero = variant === 'hero';
+
   return (
-    <div className="search-bar-container" ref={containerRef}>
-      <div className={`search-bar ${open ? 'open' : ''}`}>
+    <div className="search-bar-container" ref={containerRef} style={isHero ? { maxWidth: 480, margin: '0 auto' } : {}}>
+      <div className={`search-bar ${open ? 'open' : ''}`}
+        style={isHero ? {
+          width: '100%', padding: '4px 4px 4px 20px', background: '#fff',
+          boxShadow: '0 4px 24px rgba(0,0,0,0.08)', border: '2px solid #E2E8F0',
+        } : {}}
+      >
         <span className="search-icon">🔍</span>
         <input
           ref={inputRef}
           type="text"
           className="search-input"
-          placeholder="搜索..."
+          placeholder={isHero ? '搜一下你的问题，比如：宿舍有空调吗？' : '搜索...'}
           value={query}
           onChange={e => setQuery(e.target.value)}
           onFocus={() => { if (results.length > 0) setOpen(true); }}
           onKeyDown={handleKeyDown}
+          style={isHero ? { padding: '14px 10px', fontSize: '0.95rem' } : {}}
         />
         {query && (
           <button className="search-clear" onClick={() => { setQuery(''); inputRef.current?.focus(); }}>
@@ -90,7 +98,10 @@ export default function SearchBar() {
         )}
       </div>
       {open && (
-        <div className="search-results">
+        <div className="search-results" style={isHero ? {
+          position: 'absolute', top: '100%', left: 0, right: 0, transform: 'none',
+          marginTop: 8, width: '100%', maxWidth: 'none',
+        } : {}}>
           {results.map((item, i) => (
             <div
               key={i}
