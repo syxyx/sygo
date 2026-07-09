@@ -7,108 +7,115 @@
 - **页面**：首页、入学准备、校园生活、避坑指南、专业解读、百问百答（加微信入口）、关于本站
 - **开发命令**：`npm run dev`（开发）、`npm run build`（构建）、`npm run preview`（预览）
 
-## 部署信息
-- **平台**：GitHub Pages（免费）
-- **仓库**：`HHX111-CMD/sysc`
-- **公网地址**：https://hhx111-cmd.github.io/sysc/
-- **推送方式**：SSH（`git@github.com:HHX111-CMD/sysc.git`）
-- **自动部署**：GitHub Actions（`.github/workflows/deploy.yml`），push 到 master 后自动触发
-- **Vite 配置**：`base: '/sysc/'`（必须匹配仓库名）
-- **路由配置**：`HashRouter`（不用 basename，适配 GitHub Pages 静态托管）
+## 部署信息（2026-07-09 最新）
+- **平台**：GitHub Pages（免费，唯一正式平台）
+- **仓库**：`syxyx/sygo`（组织 `syxyx`，之前是 HHX111-CMD/sysc → HHX111-CMD/sygo）
+- **主域名**：**https://sygo.top**（万网购买，绑定 GitHub Pages）
+- **备用地址**：https://syxyx.github.io/sygo/（无自定义域名时自动跳转到 sygo.top）
+- **推送方式**：SSH（`git@github.com:syxyx/sygo.git`）
+- **自动部署**：GitHub Actions（`.github/workflows/deploy.yml`），push master 后自动触发
+- **Vite 配置**：`base: '/'`（自定义域名从根路径访问）
+- **路由配置**：`HashRouter`（适配静态托管）
+- **CNAME 文件**：`public/CNAME` 内容 `sygo.top`
+
+## 域名试错记录（重要）
+- **GitHub Pages**：免费，但微信会拦截未备案域名（ICP）→ 无法解决
+- **Vercel**：试过部署+绑定 sygo.top，但微信同样拦截，且 vercel.app 在中国被墙 → 已弃用
+- **Cloudflare Pages**：试过部署 sygo.pages.dev，同样微信拦截 → 已弃用
+- **结论**：微信 ICP 检查的是域名本身，换任何平台都无法绕过。备案需要国内服务器（约60元/年）+ 15-20个工作日
+- **目前策略**：sygo.top 作为唯一域名，微信里分享用 syxyx.github.io/sygo/（不会被拦）
+
+## DNS 配置（万网/阿里云）
+- 使用阿里云 CLI（`aliyun`）管理 DNS 记录
+- sygo.top 当前 DNS 记录（必须在阿里云控制台或 CLI 操作）：
+  - 4 条 A 记录 `@` → `185.199.108.153` / `109.153` / `110.153` / `111.153`
+  - 1 条 CNAME `www` → `syxyx.github.io`
+- **教训**：DNS 修改后需要传播时间（几分钟到几小时），期间网站可能不稳定
+- **GitHub Pages CDN 缓存**：自定义域名变更后 CDN 可能缓存旧 301 跳转，需等几分钟
 
 ## 文件结构
 ```
 shaoyang-university-guide/
 ├── index.html
-├── vite.config.js              # base: '/sysc/'
+├── vite.config.js              # base: '/'（自定义域名用根路径）
 ├── .github/workflows/deploy.yml
+├── public/CNAME                # sygo.top
+├── public/404.html
 ├── CC-Session-Logs/            # 会话日志
 ├── src/
 │   ├── main.jsx                # HashRouter
 │   ├── App.jsx                 # 7个页面路由
 │   ├── index.css               # 全局样式 + CSS 变量
-│   ├── data/content.js         # 所有页面内容数据
+│   ├── data/content.js         # 所有页面内容数据（微信号在此修改）
 │   ├── data/searchIndex.js     # 搜索索引
-│   ├── components/             # Navbar, Footer, ScrollReveal, BackToTop, SearchBar, Countdown, ImageGallery
+│   ├── components/             # Navbar, Footer, ScrollReveal, BackToTop, SearchBar, Countdown, ImageGallery, ScrollToTop
 │   └── pages/                  # Home, Prepare, Life, Pitfalls, Majors, QA, About
 ```
 
-## 最新改动（2026-07-08）
-
-### 图片系统
-- **14张真实照片已上线**：校园实拍6张（东门/北一二三门/图书馆/教学楼）、宿舍4张（乐山/采芹/杏林/泮水）、食堂4张（留香/溢香/馨香/杏香）
-- **新增组件**：`ImageGallery.jsx`（图片画廊，支持点击放大lightbox、键盘翻页）、`Countdown.jsx`（开学倒计时）
-- **图片路径铁律**：必须用 `/sysc/images/...` 前缀（因为 GitHub Pages 部署在子路径下），英文文件名（中文文件名会404）
-- **图片压缩流程**：用 sharp 库压缩 PNG→JPG，resize 1200x800 + quality 80，压缩率约95%
-
-### 页面内容修改
-- **入学准备**：重写必带清单（8项）、不用带清单、删掉天气板块、军训时间改2周、交通强调不要买邵阳北站
-- **校园生活-宿舍**：从四/六/八人间改为按公寓介绍（乐山/采芹/泮水/杏林）
-- **校园生活-食堂**：修正为七里坪4个+李子园思源，tips加后街前街
-- **百问百答**：精简回答、删第8题、新增14个问题（上床下桌/空调/早晚自习/校园跑/外卖/洗衣机/热水/电瓶车/限电/银行卡/超市/快递/共享单车/门禁）
-- **校园地图**：导航栏添加 🗺️ 校园地图，链接到学校3D地图，新标签页打开
-
-### 新功能
-- **开学倒计时**：首页校园实拍上方，目标2026年9月13日
-- **校园地图入口**：导航栏"校园生活"后面，外部链接用 `<a>` 而非 `<Link>`
-
 ## 最新改动（2026-07-09）
 
-### 两轮移动端 + 交互优化（已部署上线）
-- **第一轮（移动端体验+视觉）**：修复 ImageGallery"🔍点击放大"提示从未显示的 bug（inline opacity:0 无 hover 规则）→ 改 CSS 控制，桌面 hover 显示/触屏常驻；搜索框移动端字号提 16px 消除 iOS 聚焦缩放；汉堡菜单加半透明遮罩+锁 body 滚动+点外关闭；全局 `-webkit-tap-highlight-color:transparent`；hover 效果用 `@media (hover:hover)` 门控避免触屏卡住；卡片/按钮加 `:active` 按压反馈；图片 hover 轻微 scale(1.06)
-- **第二轮（交互）**：新建 `ScrollToTop.jsx` 修复路由切换不回顶部的 bug（React Router 不自动滚顶）；搜索无结果时展示引导（`.search-no-result` 原是死代码）+ 「加学长微信」CTA；QA 手风琴改 max-height+ref 平滑展开（原是瞬间弹出）；QA 微信号一键复制（navigator.clipboard + execCommand 降级）+"已复制✓"；BackToTop hover 门控、移动端下移
+### 域名和仓库大调整
+- **购买域名**：万网购买 `sygo.top`
+- **仓库迁移**：HHX111-CMD/sysc → HHX111-CMD/sygo → **syxyx/sygo**（创建 GitHub 组织 syxyx 缩短 URL）
+- **放弃 Vercel/Cloudflare**：试过都解决不了微信 ICP 问题，最终只保留 GitHub Pages
+- **微信号更新**：全站微信号改为 `a3399388639`（`src/data/content.js` 中 contactPhone 和 phone）
+- **路径体系**：
+  - 绑 sygo.top 时 base=`/`，图片路径 `/images/`
+  - 如果只部署到 github.io 子路径（无自定义域名），base=`/sygo/`，图片路径 `/sygo/images/`
 
-### 关键经验：如何从官网抓准确数据（重要，可复用）
-- **WebFetch/WebSearch 连不上任何国内网站**（hnsyu.edu.cn/.net、百度、阳光高考全被拦）——因为浏览走的是 Anthropic 美国服务器，不是用户电脑
-- **绕过方法：用 Bash 的 `curl`**——终端命令在用户 Windows 本地跑，走用户网络，能连上官网
-- **Python 是 Windows 商店空壳（exit 49）**，用 **Node v24** 解析 JSON；注意 node 把 `/tmp` 解析成 `D:\tmp`，临时文件要放工作目录
-- **招生网数据接口**：`POST http://zsw.hnsyu.edu.cn/api.php/cms/getschoollist`（空 body）→ 返回双层编码 JSON，`data` 是字符串需二次 parse，含 20 个学院+专业+电话
-- **校区归属**：从各学院官网页脚地址提取（`http://www1.hnsyu.net/<院系代码>/`）
+### GitHub 组织操作经验（可复用）
+- 创建组织：https://github.com/account/organizations/new?plan=free
+- 类型选 "A business or institution" → 免费方案
+- 仓库转移：Settings → Danger Zone → Transfer ownership
+- 转移可能卡住，备选方案：直接在新组织新建仓库再 push
 
-### 校区 × 专业分布（2026 官网核实版，非百科旧数据）
-- **李子园校区（老校区）**：文学院(汉语言文学/历史学)、外国语学院(英语)、音乐舞蹈学院(音乐学/舞蹈学)、食品与化学工程学院(生物工程/化工/食品/制药)
-- **七里坪校区（新/主校区）**：经管、法商(会计/法学)、信息科学与工程(AI/通信/电子/计算机)、电气、机械与能源、土木、理学院、设计艺术、农林生态、体育、马克思主义、国际学院、**护理学院、医学技术学院(影像/检验/康复)**
-- **梅子井校区**：药学院(药学)
-- **临床医学(普爱医学院)**：七里坪(基础医学楼)+西湖校区都有，基础阶段主要在七里坪，**网站需标注"以录取通知书为准"**
+### 移动端 + 交互优化（两轮，已上线）
+- 移动端：图片提示修复、iOS 搜索框缩放、汉堡遮罩锁滚动、全局触屏反馈
+- 交互：路由回顶(ScrollToTop)、搜索无结果引导加微信、QA 手风琴平滑展开、微信号一键复制
+
+### 图片系统
+- 14张真实照片已上线（校园/宿舍/食堂），ImageGallery 组件支持 lightbox
+- 图片路径：当前用 `/images/...`（自定义域名根路径），英文文件名
+- 压缩流程：sharp resize 1200x800 + jpeg quality 80
+
+### 校区 × 专业分布（2026 官网核实版）
+- **李子园**：文学院、外国语学院、音乐舞蹈学院、食品与化学工程学院
+- **七里坪**：经管、法商、信息工程、电气、机械、土木、理学、设计艺术、农林生态、体育、马克思主义、国际学院、护理学院、医学技术学院
+- **梅子井**：药学院
+- **临床医学**：七里坪+西湖校区，基础阶段主要在七里坪
+- 数据来源：`curl` 抓取招生网 API + 各学院官网页脚
+
+### 页面内容修改
+- 入学准备：必带清单重写、军训时间改2周、交通强调不要买邵阳北站
+- 校园生活：宿舍按公寓介绍、食堂按实际名称
+- 百问百答：新增14个问题，加微信入口
+- 新功能：开学倒计时（2026/9/13）、校园地图入口
 
 ## 部署注意事项
-1. **GitHub 推送**：SSH 方式（`git@github.com:HHX111-CMD/sysc.git`）
-2. **图片路径必须有 /sysc/ 前缀**：代码中写 `/sysc/images/xxx.jpg`，不能用 `/images/xxx.jpg`
-3. **图片文件名用英文**：中文文件名会导致 GitHub Pages 404
-4. **GitHub Actions 偶发部署失败**：重推一次触发新部署即可
-5. **页面空白**：必须同时配置 vite.config.js base 和 HashRouter
-
-## 图片管理
-
-### 添加新图片流程
-1. 把原始图片（png/jpg）放到 `public/images/对应文件夹/`
-2. 用 sharp 压缩：`npx sharp` resize 1200x800, jpeg quality 80
-3. 删除原始大文件和旧 svg 占位图
-4. 代码中引用：`{ src: '/sysc/images/xxx/yyy.jpg', caption: '标题' }`
-5. `npm run build` → `git add .` → `git commit` → `git push`
-
-### 当前图片清单
-```
-public/images/
-├── campus/     gate-east.jpg, gate-north1/2/3.jpg, library.jpg, teaching-building.jpg
-├── dorm/       leshan.jpg, caiqin.jpg, xinglin.jpg, panyong.jpg
-└── canteen/    liuxiang.jpg, yixiang.jpg, xinxiang.jpg, xingxiang.jpg
-```
+1. **GitHub 推送**：`git@github.com:syxyx/sygo.git`（SSH）
+2. **图片路径**：绑自定义域名时用 `/images/xxx.jpg`；子路径部署时用 `/sygo/images/xxx.jpg`
+3. **图片文件名用英文**：中文文件名 GitHub Pages 404
+4. **自定义域名绑定后 base 必须是 `/`**，否则资源加载 404
+5. **GitHub Pages CDN 有缓存**：改完设置等几分钟才生效
+6. **DNS 改完要等传播**：用 `nslookup sygo.top` 确认解析到 GitHub IP
 
 ## 用户偏好
 - 所有交流使用中文
-- 用户 GitHub 账号：HHX111-CMD
-- 用户联系电话/微信：15364075803
+- 用户 GitHub：HHX111-CMD，组织：syxyx
+- 微信号：a3399388639
+- 万网域名：sygo.top
 - 不出镜做IP，不主动拍视频，靠截流获取流量
 
 ## 待办
 - [x] 网站加图片（14张真实照片已上线）
-- [x] 移动端体验优化（图片提示/iOS缩放/汉堡遮罩/触屏反馈，已上线）
-- [x] 交互优化（路由回顶/搜索无结果引导/QA手风琴/微信复制，已上线）
-- [x] 从官网核实校区-专业分布数据（已拿到官方版，见上）
-- [ ] **做「我的专业在哪个校区」查询页**（用官网核实的校区数据，选专业→显示校区+附近食堂/公寓/报到门）
-- [ ] 补"报到前"高频缺口：学费/住宿费、助学贷款/绿色通道、线上迎新报到系统、电脑/电子产品选购
+- [x] 移动端体验优化
+- [x] 交互优化（路由回顶/搜索/QA手风琴/微信复制）
+- [x] 从官网核实校区-专业分布数据
+- [x] 购买域名 sygo.top 并绑定 GitHub Pages
+- [x] 仓库迁移到 syxyx/sygo（缩短 URL）
+- [x] 微信号更新为 a3399388639
+- [ ] **做「我的专业在哪个校区」查询页**（用官网核实的校区数据）
+- [ ] 补"报到前"高频缺口：学费/住宿费、助学贷款/绿色通道、线上迎新报到系统、电脑选购
 - [ ] 微信分享优化（Open Graph 标签）
 - [ ] 每个攻略页面底部统一加微信入口
 - [ ] 首页加"分享给同学"引导
-- [ ] 抖音注册账号，评论区截流
