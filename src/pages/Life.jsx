@@ -6,18 +6,18 @@ const { dorm, canteen, money, parttime, clubs } = lifeContent;
 
 // 宿舍实拍图片
 const dormImages = [
-  { src: '/sygo/images/dorm/leshan.jpg', caption: '乐山公寓' },
-  { src: '/sygo/images/dorm/caiqin.jpg', caption: '采芹公寓' },
-  { src: '/sygo/images/dorm/xinglin.jpg', caption: '杏林公寓' },
-  { src: '/sygo/images/dorm/panyong.jpg', caption: '泮水公寓' },
+  { src: '/images/dorm/leshan.jpg', caption: '乐山公寓' },
+  { src: '/images/dorm/caiqin.jpg', caption: '采芹公寓' },
+  { src: '/images/dorm/xinglin.jpg', caption: '杏林公寓' },
+  { src: '/images/dorm/panyong.jpg', caption: '泮水公寓' },
 ];
 
 // 食堂实拍图片
 const canteenImages = [
-  { src: '/sygo/images/canteen/liuxiang.jpg', caption: '留香食堂' },
-  { src: '/sygo/images/canteen/yixiang.jpg', caption: '溢香食堂' },
-  { src: '/sygo/images/canteen/xinxiang.jpg', caption: '馨香食堂' },
-  { src: '/sygo/images/canteen/xingxiang.jpg', caption: '杏香食堂' },
+  { src: '/images/canteen/liuxiang.jpg', caption: '留香食堂' },
+  { src: '/images/canteen/yixiang.jpg', caption: '溢香食堂' },
+  { src: '/images/canteen/xinxiang.jpg', caption: '馨香食堂' },
+  { src: '/images/canteen/xingxiang.jpg', caption: '杏香食堂' },
 ];
 
 export default function Life() {
