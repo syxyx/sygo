@@ -111,6 +111,10 @@
   .search-bar.open {
     width: 180px;
   }
+  /* 字号 16px：避免 iOS Safari 聚焦时自动放大页面 */
+  .search-input {
+    font-size: 16px;
+  }
   .search-results {
     position: fixed;
     top: var(--nav-height);

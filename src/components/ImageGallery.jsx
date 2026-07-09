@@ -35,22 +35,16 @@ export default function ImageGallery({ images = [], columns = 2, title }) {
         {images.map((img, i) => (
           <div
             key={i}
+            className="gallery-card"
             style={card}
             onClick={() => open(i)}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'translateY(-4px)';
-              e.currentTarget.style.boxShadow = '0 8px 32px rgba(0,0,0,0.12)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.06)';
-            }}
           >
             <div style={imgWrapper}>
               <img
                 src={img.src}
                 alt={img.caption || ''}
                 loading="lazy"
+                className="gallery-img"
                 style={imgStyle}
                 onError={(e) => {
                   e.target.style.display = 'none';
@@ -60,7 +54,7 @@ export default function ImageGallery({ images = [], columns = 2, title }) {
                   e.target.parentNode.appendChild(placeholder);
                 }}
               />
-              <div style={zoomHint}>🔍 点击放大</div>
+              <div className="zoom-hint" style={zoomHint}>🔍 点击放大</div>
             </div>
             {img.caption && <p style={captionStyle}>{img.caption}</p>}
           </div>
@@ -133,8 +127,7 @@ const zoomHint = {
   fontSize: '0.75rem',
   padding: '3px 10px',
   borderRadius: 50,
-  opacity: 0,
-  transition: 'opacity 0.3s',
+  pointerEvents: 'none',
 };
 
 const captionStyle = {

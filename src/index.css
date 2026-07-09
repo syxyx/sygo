@@ -49,6 +49,10 @@ a { text-decoration: none; color: inherit; }
 ul { list-style: none; }
 img { max-width: 100%; display: block; }
 
+/* 触屏：去掉点击时的灰蓝闪块 */
+* { -webkit-tap-highlight-color: transparent; }
+button, a { -webkit-tap-highlight-color: transparent; }
+
 /* ========== Utility Classes ========== */
 .container {
   max-width: var(--max-width);
@@ -203,3 +207,42 @@ img { max-width: 100%; display: block; }
   .page-header { padding: 96px 0 40px; }
   .page-header h1 { font-size: 2rem; }
 }
+
+/* ========== 图片画廊交互 ========== */
+.gallery-card {
+  will-change: transform;
+}
+.gallery-img {
+  transition: transform 0.4s ease;
+}
+.zoom-hint {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+/* 桌面：悬停才有位移/放大/提示 */
+@media (hover: hover) {
+  .gallery-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12) !important;
+  }
+  .gallery-card:hover .gallery-img {
+    transform: scale(1.06);
+  }
+  .gallery-card:hover .zoom-hint {
+    opacity: 1;
+  }
+}
+/* 触屏：提示常驻，让用户知道图片可点开 */
+@media (hover: none) {
+  .zoom-hint { opacity: 1; }
+}
+/* 按压反馈（触屏与桌面通用） */
+.gallery-card:active { transform: scale(0.98); }
+
+/* ========== 全局按压反馈 ========== */
+/* hover 只在支持悬停的设备生效，避免触屏点完样式卡住 */
+@media (hover: none) {
+  .btn-primary:hover { transform: none; box-shadow: 0 4px 16px rgba(255,107,53,0.35); }
+  .btn-outline:hover { background: transparent; color: var(--secondary); transform: none; }
+}
+.btn:active { transform: scale(0.96); }

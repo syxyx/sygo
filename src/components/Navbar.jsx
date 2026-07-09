@@ -27,6 +27,12 @@ export default function Navbar() {
 
   useEffect(() => { setMenuOpen(false); }, [location]);
 
+  // 抽屉打开时锁定背景滚动
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [menuOpen]);
+
   return (
     <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <div className="navbar-inner">
@@ -41,6 +47,10 @@ export default function Navbar() {
         >
           <span /><span /><span />
         </button>
+        <div
+          className={`nav-backdrop ${menuOpen ? 'open' : ''}`}
+          onClick={() => setMenuOpen(false)}
+        />
         <ul className={`nav-links ${menuOpen ? 'open' : ''}`}>
           {navLinks.map(link => (
             <li key={link.path}>
