@@ -7,19 +7,19 @@ import { homeContent, siteInfo } from '../data/content';
 
 // 七里坪校区实拍
 const qilipingImages = [
-  { src: '/sysc/images/campus/gate-east.jpg', caption: '东门（超越门）' },
-  { src: '/sysc/images/campus/gate-north1.jpg', caption: '北一门' },
-  { src: '/sysc/images/campus/gate-north2.jpg', caption: '北二门' },
-  { src: '/sysc/images/campus/gate-north3.jpg', caption: '北三门' },
-  { src: '/sysc/images/campus/library.jpg', caption: '图书馆' },
-  { src: '/sysc/images/campus/teaching-building.jpg', caption: '教学楼' },
+  { src: '/images/campus/gate-east.jpg', caption: '东门（超越门）' },
+  { src: '/images/campus/gate-north1.jpg', caption: '北一门' },
+  { src: '/images/campus/gate-north2.jpg', caption: '北二门' },
+  { src: '/images/campus/gate-north3.jpg', caption: '北三门' },
+  { src: '/images/campus/library.jpg', caption: '图书馆' },
+  { src: '/images/campus/teaching-building.jpg', caption: '教学楼' },
 ];
 
 // 李子园校区实拍
 const liziyuanImages = [
-  { src: '/sysc/images/campus/liziyuan-gate.jpg', caption: '李子园校门' },
-  { src: '/sysc/images/campus/liziyuan-library.jpg', caption: '李子园图书馆' },
-  { src: '/sysc/images/campus/liziyuan-office.jpg', caption: '李子园办公楼' },
+  { src: '/images/campus/liziyuan-gate.jpg', caption: '李子园校门' },
+  { src: '/images/campus/liziyuan-library.jpg', caption: '李子园图书馆' },
+  { src: '/images/campus/liziyuan-office.jpg', caption: '李子园办公楼' },
 ];
 
 // ===== 样式常量 =====
