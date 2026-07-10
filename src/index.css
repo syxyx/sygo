@@ -296,3 +296,38 @@ button, a { -webkit-tap-highlight-color: transparent; }
 @media (max-width: 768px) {
   .back-to-top { bottom: 20px !important; right: 20px !important; }
 }
+
+/* ========== 留言墙弹幕 ========== */
+.danmaku-area {
+  position: relative;
+  overflow: hidden;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #fff, #FFF7F0);
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.03), 0 4px 20px rgba(0,0,0,0.05);
+}
+.danmaku-item {
+  position: absolute;
+  left: 100%;
+  white-space: nowrap;
+  will-change: transform;
+  padding: 7px 16px;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  animation-name: danmakuFloat;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+@keyframes danmakuFloat {
+  from { transform: translateX(0); }
+  to { transform: translateX(calc(-100vw - 100%)); }
+}
+/* 桌面悬停整块暂停，方便看清 */
+@media (hover: hover) {
+  .danmaku-area:hover .danmaku-item { animation-play-state: paused; }
+}
+/* 尊重"减少动态效果"无障碍设置 */
+@media (prefers-reduced-motion: reduce) {
+  .danmaku-item { animation: none; }
+}
