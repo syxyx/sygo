@@ -1,6 +1,7 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import searchIndex from '../data/searchIndex';
+import { aboutContent } from '../data/content';
 import './SearchBar.css';
 
 export default function SearchBar({ variant = 'nav' }) {
@@ -8,10 +9,28 @@ export default function SearchBar({ variant = 'nav' }) {
   const [results, setResults] = useState([]);
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState(-1);
+  const [copied, setCopied] = useState(false);
   const inputRef = useRef(null);
   const containerRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
+  const phone = aboutContent.contact.phone;
+
+  const copyPhone = useCallback(() => {
+    navigator.clipboard.writeText(phone).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }).catch(() => {
+      const el = document.createElement('textarea');
+      el.value = phone;
+      document.body.appendChild(el);
+      el.select();
+      try { document.execCommand('copy'); } catch { /* 忽略 */ }
+      document.body.removeChild(el);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  }, [phone]);
 
   useEffect(() => {
     if (!query.trim()) {
@@ -146,9 +165,9 @@ export default function SearchBar({ variant = 'nav' }) {
               没找到「{query}」相关内容 😅
               <div
                 className="search-no-result-cta"
-                onClick={() => goTo({ path: '/qa' })}
+                onClick={copyPhone}
               >
-                💬 加学长微信直接问 →
+                {copied ? '✅ 已复制微信号' : '💬 加学长微信直接问 →'}
               </div>
             </div>
           )}
