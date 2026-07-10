@@ -37,7 +37,6 @@ export default function MessageWall() {
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState(false);
   const [submitting, setSubmitting] = useState(false);
-  const [major, setMajor] = useState('');
   const [text, setText] = useState('');
   const [cooldown, setCooldown] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -63,14 +62,13 @@ export default function MessageWall() {
 
   const submit = async () => {
     const t = clean(text.trim());
-    const m = clean(major.trim());
     if (!t || cooldown || submitting) return;
     if (t.length > 60) return;
 
     if (CLOUD) {
       setSubmitting(true);
       try {
-        const saved = await addMessage(m || '匿名新生', t);
+        const saved = await addMessage('新生', t);
         setMessages(prev => [saved, ...prev]);
         setText('');
         startCooldown();
@@ -80,7 +78,7 @@ export default function MessageWall() {
         setSubmitting(false);
       }
     } else {
-      const newMsg = { id: Date.now(), major: m || '匿名新生', text: t, time: Date.now() };
+      const newMsg = { id: Date.now(), major: '新生', text: t, time: Date.now() };
       const updated = [newMsg, ...messages];
       setMessages(updated);
       saveLocal(updated);
@@ -123,7 +121,7 @@ export default function MessageWall() {
     <section style={{ padding: '0 24px 80px' }}>
       <div style={{ maxWidth: 700, margin: '0 auto' }}>
         <h2 className="section-title">🎉 新生报到墙</h2>
-        <p className="section-subtitle">留下你的专业和想说的话，看看有多少同路人~</p>
+        <p className="section-subtitle">写下想说的话，看看有多少同学一起报到~</p>
 
         {/* 留言总数 */}
         <div style={{ textAlign: 'center', marginBottom: 28 }}>
@@ -141,19 +139,9 @@ export default function MessageWall() {
           background: '#fff', borderRadius: 20, padding: '24px 28px',
           boxShadow: '0 4px 20px rgba(0,0,0,0.06)', marginBottom: 24,
         }}>
-          <div style={{ display: 'flex', gap: 10, marginBottom: 12, flexWrap: 'wrap' }}>
-            <input
-              type="text"
-              placeholder="你的专业（选填）"
-              value={major}
-              onChange={e => setMajor(e.target.value)}
-              maxLength={20}
-              style={inputStyle}
-            />
-          </div>
           <div style={{ display: 'flex', gap: 10, alignItems: 'flex-end', flexWrap: 'wrap' }}>
             <textarea
-              placeholder="说点什么吧…（比如：计算机科学与技术，期待大学生活！）"
+              placeholder="说点什么吧…（比如：终于要开学啦，好激动！）"
               value={text}
               onChange={e => setText(e.target.value)}
               onKeyDown={handleKeyDown}
@@ -221,7 +209,7 @@ export default function MessageWall() {
                 }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
                     <span style={{ fontSize: '0.88rem', fontWeight: 700, color: '#2D3436' }}>
-                      🎓 {msg.major}
+                      🎓 新生
                     </span>
                     <span style={{ fontSize: '0.72rem', color: '#A0AEC0' }}>
                       {fmtTime(msg.time)}
