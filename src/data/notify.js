@@ -11,7 +11,7 @@
 // 注意：SENDKEY 会随前端代码公开，理论上有人扒出来能给你发骚扰通知（概率极低）。
 //       真被骚扰，去 Server酱 后台重置 SENDKEY，改完让我换上新的。
 // ============================================================
-const SERVERCHAN_KEY = '';                       // ← 粘贴 SENDKEY
+const SERVERCHAN_KEY = 'SCT377568Te5ojbcqv4ijdHysFhru6zgJK'; // ← 粘贴 SENDKEY
 const SEND_BASE = 'https://sctapi.ftqq.com';     // Turbo 版地址；若是 Server酱³ 版会不同，拿到 key 再定
 
 export function notifyNewMessage(text) {

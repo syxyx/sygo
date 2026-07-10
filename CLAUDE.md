@@ -200,7 +200,7 @@ shaoyang-university-guide/
 - 护理、助产、医检、影像、康复
 
 ## 待办
-- [x] **留言墙：新留言微信通知**（2026-07-10）— 方案 Server酱/方糖 客户端推送（`src/data/notify.js`，发言即从前端 no-cors GET 推到站长微信）。**待用户填 SENDKEY** 才生效，未填自动跳过。（曾试 PushPlus，用户反馈要实名收费，弃用）
+- [x] **留言墙：新留言微信通知**（2026-07-10 已生效）— Server酱/方糖 客户端推送（`src/data/notify.js` 已填 SENDKEY，实测 code:0 成功）。发言即从前端 no-cors GET 推到站长微信「方糖」公众号。（曾试 PushPlus，用户反馈要实名收费，弃用）
 - [x] **留言墙：公开回复（网页内，暗号+密码）**（2026-07-10）— 留言框打暗号「回复」→ 弹密码框 → Supabase Auth 登录(`owner@sygo.top`)→ 解锁回复模式，展开列表点「回复」直接写。安全靠 RLS：只有登录站长(`auth.uid()` 非空)能 update，访客改不了。**待用户在 Supabase：① Authentication 建 owner@sygo.top 账号(勾自动确认) ② 跑「加 reply 字段 + update 策略」的 SQL**。前端 `MessageWall.jsx`+数据层 `supabase.js`
 - [x] **留言墙：弹幕化**（2026-07-10 完成）— 留言在一块区域里像 B站弹幕从右往左飘（`.danmaku-area`/`danmakuFloat` in index.css，引擎在 MessageWall.jsx：定时循环放送+发言即飞+悬停暂停），下方「查看全部留言」可展开完整列表
 - [x] 网站加图片（14张真实照片已上线）
