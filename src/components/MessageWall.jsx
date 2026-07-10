@@ -68,7 +68,7 @@ export default function MessageWall() {
     if (CLOUD) {
       setSubmitting(true);
       try {
-        const saved = await addMessage('新生', t);
+        const saved = await addMessage('', t);
         setMessages(prev => [saved, ...prev]);
         setText('');
         startCooldown();
@@ -78,7 +78,7 @@ export default function MessageWall() {
         setSubmitting(false);
       }
     } else {
-      const newMsg = { id: Date.now(), major: '新生', text: t, time: Date.now() };
+      const newMsg = { id: Date.now(), major: '', text: t, time: Date.now() };
       const updated = [newMsg, ...messages];
       setMessages(updated);
       saveLocal(updated);
@@ -120,8 +120,8 @@ export default function MessageWall() {
   return (
     <section style={{ padding: '0 24px 80px' }}>
       <div style={{ maxWidth: 700, margin: '0 auto' }}>
-        <h2 className="section-title">🎉 新生报到墙</h2>
-        <p className="section-subtitle">写下想说的话，看看有多少同学一起报到~</p>
+        <h2 className="section-title">💬 留言墙</h2>
+        <p className="section-subtitle">有问题想问学长，或者对网站有什么建议，都可以在这儿留言~</p>
 
         {/* 留言总数 */}
         <div style={{ textAlign: 'center', marginBottom: 28 }}>
@@ -130,7 +130,7 @@ export default function MessageWall() {
             background: 'linear-gradient(135deg, rgba(255,107,53,0.1), rgba(255,65,108,0.1))',
             color: '#FF6B35', fontWeight: 700, fontSize: '0.95rem',
           }}>
-            🎓 已有 {messages.length}{messages.length >= MAX_FETCH ? '+' : ''} 位新生报到
+            💬 已有 {messages.length}{messages.length >= MAX_FETCH ? '+' : ''} 条留言
           </span>
         </div>
 
@@ -141,7 +141,7 @@ export default function MessageWall() {
         }}>
           <div style={{ display: 'flex', gap: 10, alignItems: 'flex-end', flexWrap: 'wrap' }}>
             <textarea
-              placeholder="说点什么吧…（比如：终于要开学啦，好激动！）"
+              placeholder="有什么想问的、或对网站的建议，写在这儿~（学长会看）"
               value={text}
               onChange={e => setText(e.target.value)}
               onKeyDown={handleKeyDown}
@@ -161,7 +161,7 @@ export default function MessageWall() {
                 transition: 'all 0.2s',
               }}
             >
-              {submitting ? '发送中…' : cooldown ? '⏳' : '🚀 报到'}
+              {submitting ? '发送中…' : cooldown ? '⏳' : '💬 留言'}
             </button>
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 10 }}>
@@ -195,7 +195,7 @@ export default function MessageWall() {
           ) : messages.length === 0 ? (
             <div style={{ textAlign: 'center', padding: '40px 20px', color: '#A0AEC0' }}>
               <p style={{ fontSize: '2.5rem', marginBottom: 8 }}>📝</p>
-              <p>还没有人报到，来做第一个吧！</p>
+              <p>还没有人留言，有问题或建议就来说第一句吧！</p>
             </div>
           ) : (
             messages.map((msg, i) => {
@@ -209,7 +209,7 @@ export default function MessageWall() {
                 }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
                     <span style={{ fontSize: '0.88rem', fontWeight: 700, color: '#2D3436' }}>
-                      🎓 新生
+                      🙋 同学
                     </span>
                     <span style={{ fontSize: '0.72rem', color: '#A0AEC0' }}>
                       {fmtTime(msg.time)}
@@ -228,7 +228,7 @@ export default function MessageWall() {
           background: 'linear-gradient(135deg, #F8F9FC, #FFF3E0)', borderRadius: 16,
         }}>
           <p style={{ fontSize: '0.95rem', color: '#636E72', marginBottom: 12 }}>
-            💬 想找同专业同学？加学长微信拉你进新生群
+            💬 有急事想私聊问？加学长微信，看到就回
           </p>
           <button
             onClick={copyPhone}

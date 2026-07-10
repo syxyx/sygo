@@ -120,11 +120,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 新生报到墙 */}
+      {/* 留言墙 */}
       <ScrollReveal>
         <Suspense fallback={
           <section style={{ padding: '40px 24px', textAlign: 'center', color: '#A0AEC0' }}>
-            ⏳ 报到墙加载中…
+            ⏳ 留言墙加载中…
           </section>
         }>
           <MessageWall />
