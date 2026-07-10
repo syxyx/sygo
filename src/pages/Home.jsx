@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import ScrollReveal from '../components/ScrollReveal';
 import ImageGallery from '../components/ImageGallery';
@@ -59,6 +60,23 @@ const onTagEnter = e => { e.currentTarget.style.color = '#FF6B35'; e.currentTarg
 const onTagLeave = e => { e.currentTarget.style.color = '#636E72'; e.currentTarget.style.borderColor = '#E2E8F0'; };
 
 export default function Home() {
+  const [copied, setCopied] = useState(false);
+  const phone = homeContent.contactPhone;
+
+  const copyPhone = async () => {
+    try {
+      await navigator.clipboard.writeText(phone);
+    } catch {
+      const el = document.createElement('textarea');
+      el.value = phone;
+      document.body.appendChild(el);
+      el.select();
+      try { document.execCommand('copy'); } catch { /* 忽略 */ }
+      document.body.removeChild(el);
+    }
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   return (
     <>
@@ -167,8 +185,10 @@ export default function Home() {
             <div style={ctaBox}>
               <h2 style={ctaTitle}>还有问题？直接找我聊</h2>
               <p style={ctaDesc}>别不好意思，谁大一不是懵过来的呢 😄</p>
-              <p style={ctaPhone}>📱 {homeContent.contactPhone}</p>
-              <Link to="/qa" style={ctaBtn}>💬 加微信</Link>
+              <p style={ctaPhone}>📱 {phone}</p>
+              <button onClick={copyPhone} style={{...ctaBtn, fontFamily: 'inherit', cursor: 'pointer'}}>
+                {copied ? '✅ 已复制' : '💬 加微信（点击复制）'}
+              </button>
             </div>
           </ScrollReveal>
         </div>
