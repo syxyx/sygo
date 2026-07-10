@@ -6,7 +6,7 @@ export const siteInfo = {
   shortName: '邵阳学院',
   location: '湖南省邵阳市大祥区学院路',
   founded: 1958,
-  campuses: ['七里坪校区', '李子园校区', '江北校区', '西湖校区'],
+  campuses: ['七里坪校区', '李子园校区'],
 };
 
 export const homeContent = {
