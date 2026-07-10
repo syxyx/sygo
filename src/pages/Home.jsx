@@ -1,10 +1,13 @@
-import { useState } from 'react';
+import { useState, lazy, Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import ScrollReveal from '../components/ScrollReveal';
 import ImageGallery from '../components/ImageGallery';
 import Countdown from '../components/Countdown';
 import SearchBar from '../components/SearchBar';
 import { homeContent, siteInfo } from '../data/content';
+
+// 报到墙带 Supabase SDK，懒加载拆包，不拖累首屏
+const MessageWall = lazy(() => import('../components/MessageWall'));
 
 // 七里坪校区实拍
 const qilipingImages = [
@@ -116,6 +119,17 @@ export default function Home() {
           </ScrollReveal>
         </div>
       </section>
+
+      {/* 新生报到墙 */}
+      <ScrollReveal>
+        <Suspense fallback={
+          <section style={{ padding: '40px 24px', textAlign: 'center', color: '#A0AEC0' }}>
+            ⏳ 报到墙加载中…
+          </section>
+        }>
+          <MessageWall />
+        </Suspense>
+      </ScrollReveal>
 
       {/* 七里坪校区 */}
       <section style={sectionPad(60)}>

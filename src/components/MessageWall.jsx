@@ -1,54 +1,95 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
+import { isConfigured, fetchMessages, addMessage, MAX_FETCH } from '../data/supabase';
 
 const STORAGE_KEY = 'sygo_message_wall';
-const MAX_MSG = 100;
 const COOLDOWN = 10000; // 10秒冷却
+const CLOUD = isConfigured();
 
-function loadMessages() {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return [];
-    return JSON.parse(raw);
-  } catch { return []; }
+// —— 基础敏感词过滤（可自行扩充）——
+const BANNED = ['代刷', '代考', '包过', '贷款', '博彩', '赌博', '色情', '加qq', '刷单', 'ｗｗｗ', 'http'];
+function clean(str) {
+  let out = str;
+  for (const w of BANNED) {
+    if (!w) continue;
+    out = out.split(w).join('*'.repeat(w.length));
+    // 忽略大小写再过一遍
+    const re = new RegExp(w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+    out = out.replace(re, m => '*'.repeat(m.length));
+  }
+  return out;
 }
 
-function saveMessages(msgs) {
+// —— localStorage 回退（未配置 LeanCloud 时用）——
+function loadLocal() {
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(msgs.slice(0, MAX_MSG)));
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch { return []; }
+}
+function saveLocal(msgs) {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(msgs.slice(0, MAX_FETCH)));
   } catch { /* 存储满 */ }
 }
 
 export default function MessageWall() {
-  const [messages, setMessages] = useState(loadMessages);
+  const [messages, setMessages] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [major, setMajor] = useState('');
   const [text, setText] = useState('');
   const [cooldown, setCooldown] = useState(false);
   const [copied, setCopied] = useState(false);
   const listRef = useRef(null);
 
-  // 自动滚动到最新
-  useEffect(() => {
-    if (listRef.current) {
-      listRef.current.scrollTop = listRef.current.scrollHeight;
+  const load = useCallback(async () => {
+    setLoading(true);
+    setLoadError(false);
+    try {
+      if (CLOUD) {
+        setMessages(await fetchMessages());
+      } else {
+        setMessages(loadLocal());
+      }
+    } catch {
+      setLoadError(true);
+    } finally {
+      setLoading(false);
     }
-  }, [messages.length]);
+  }, []);
 
-  const submit = () => {
-    const t = text.trim();
-    const m = major.trim();
-    if (!t || cooldown) return;
+  useEffect(() => { load(); }, [load]);
+
+  const submit = async () => {
+    const t = clean(text.trim());
+    const m = clean(major.trim());
+    if (!t || cooldown || submitting) return;
     if (t.length > 60) return;
 
-    const newMsg = {
-      id: Date.now(),
-      major: m || '匿名新生',
-      text: t,
-      time: Date.now(),
-    };
-    const updated = [newMsg, ...messages];
-    setMessages(updated);
-    saveMessages(updated);
-    setText('');
+    if (CLOUD) {
+      setSubmitting(true);
+      try {
+        const saved = await addMessage(m || '匿名新生', t);
+        setMessages(prev => [saved, ...prev]);
+        setText('');
+        startCooldown();
+      } catch {
+        alert('发送失败，网络开小差了，稍后再试一下～');
+      } finally {
+        setSubmitting(false);
+      }
+    } else {
+      const newMsg = { id: Date.now(), major: m || '匿名新生', text: t, time: Date.now() };
+      const updated = [newMsg, ...messages];
+      setMessages(updated);
+      saveLocal(updated);
+      setText('');
+      startCooldown();
+    }
+  };
+
+  const startCooldown = () => {
     setCooldown(true);
     setTimeout(() => setCooldown(false), COOLDOWN);
   };
@@ -75,6 +116,9 @@ export default function MessageWall() {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const busy = cooldown || submitting;
+  const canSend = text.trim() && !busy;
+
   return (
     <section style={{ padding: '0 24px 80px' }}>
       <div style={{ maxWidth: 700, margin: '0 auto' }}>
@@ -88,7 +132,7 @@ export default function MessageWall() {
             background: 'linear-gradient(135deg, rgba(255,107,53,0.1), rgba(255,65,108,0.1))',
             color: '#FF6B35', fontWeight: 700, fontSize: '0.95rem',
           }}>
-            🎓 已有 {messages.length} 位新生报到
+            🎓 已有 {messages.length}{messages.length >= MAX_FETCH ? '+' : ''} 位新生报到
           </span>
         </div>
 
@@ -119,19 +163,17 @@ export default function MessageWall() {
             />
             <button
               onClick={submit}
-              disabled={cooldown || !text.trim()}
+              disabled={!canSend}
               style={{
                 padding: '12px 24px', borderRadius: 14, border: 'none',
-                background: text.trim() && !cooldown
-                  ? 'linear-gradient(135deg, #FF6B35, #FF416C)'
-                  : '#E2E8F0',
-                color: text.trim() && !cooldown ? '#fff' : '#A0AEC0',
-                fontWeight: 700, fontSize: '0.95rem', cursor: text.trim() && !cooldown ? 'pointer' : 'default',
+                background: canSend ? 'linear-gradient(135deg, #FF6B35, #FF416C)' : '#E2E8F0',
+                color: canSend ? '#fff' : '#A0AEC0',
+                fontWeight: 700, fontSize: '0.95rem', cursor: canSend ? 'pointer' : 'default',
                 fontFamily: 'inherit', whiteSpace: 'nowrap',
                 transition: 'all 0.2s',
               }}
             >
-              {cooldown ? '⏳' : '🚀 报到'}
+              {submitting ? '发送中…' : cooldown ? '⏳' : '🚀 报到'}
             </button>
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 10 }}>
@@ -147,7 +189,22 @@ export default function MessageWall() {
           background: '#fff', boxShadow: '0 2px 12px rgba(0,0,0,0.04)',
           padding: '16px 20px',
         }}>
-          {messages.length === 0 ? (
+          {loading ? (
+            <div style={{ textAlign: 'center', padding: '40px 20px', color: '#A0AEC0' }}>
+              <p style={{ fontSize: '2rem', marginBottom: 8 }}>⏳</p>
+              <p>正在加载报到墙…</p>
+            </div>
+          ) : loadError ? (
+            <div style={{ textAlign: 'center', padding: '40px 20px', color: '#A0AEC0' }}>
+              <p style={{ fontSize: '2rem', marginBottom: 8 }}>😮‍💨</p>
+              <p style={{ marginBottom: 12 }}>加载失败，网络开小差了</p>
+              <button onClick={load} style={{
+                padding: '8px 20px', borderRadius: 50, border: '1px solid #FF6B35',
+                background: '#fff', color: '#FF6B35', fontWeight: 700, cursor: 'pointer',
+                fontFamily: 'inherit',
+              }}>点我重试</button>
+            </div>
+          ) : messages.length === 0 ? (
             <div style={{ textAlign: 'center', padding: '40px 20px', color: '#A0AEC0' }}>
               <p style={{ fontSize: '2.5rem', marginBottom: 8 }}>📝</p>
               <p>还没有人报到，来做第一个吧！</p>

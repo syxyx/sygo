@@ -126,6 +126,13 @@ shaoyang-university-guide/
 5. **GitHub Pages CDN 有缓存**：改完设置等几分钟才生效
 6. **DNS 改完要等传播**：用 `nslookup sygo.top` 确认解析到 GitHub IP
 
+## 留言墙运维（Supabase）
+- 后端：Supabase 项目 `rskakhaiavxplqpqixqn`（永久免费版）。配置在 `src/data/supabase.js`（Project URL + publishable key，前端公开可见，安全靠 RLS 行级安全）
+- 数据表 `messages`，RLS 策略：所有人可读、可插入，**不可改删**（防篡改）。字段 major/text/created_at
+- 组件 `src/components/MessageWall.jsx`，首页懒加载接入（开学倒计时下方）；未配置 key 时自动回退 localStorage
+- **删留言（人工审核，用户常问）**：登录 https://supabase.com/dashboard → 选项目 → 左侧 **Table Editor** → **messages** 表 → 勾选要删的行 → 右上 **Delete** → 确认。可多选批量删。删除永久不可恢复
+- 敏感词过滤：`MessageWall.jsx` 里的 `BANNED` 数组，命中会变 `*`，可自行增词
+
 ## 用户偏好
 - 所有交流使用中文
 - 用户 GitHub：HHX111-CMD，组织：syxyx
@@ -206,7 +213,7 @@ shaoyang-university-guide/
 - [x] 交互优化（专业sticky导航、搜索框放宽、页面过渡动画、lightbox移动端按钮）
 - [x] 全站微信复制逻辑统一（首页CTA、搜索无结果、多处一致）
 - [x] Footer加免责声明
-- [ ] **新生留言墙** `src/components/MessageWall.jsx` — 已写好组件，需接入首页
+- [x] **新生留言墙** — 组件已接入首页（开学倒计时后，懒加载拆包）。后端选型踩坑：LeanCloud 国际版已关停→腾讯云 CloudBase 免费版有阉割/要实名→最终定 **Supabase**（`src/data/supabase.js`，永久免费免绑卡）。**待用户填 Supabase 项目 URL + anon key 才能真共享**，未填时自动回退 localStorage 本机版不影响网站
 - [ ] **专业×宿舍查询** — 等用户收集完数据后再做
 - [ ] 补"报到前"高频缺口：学费/住宿费、助学贷款/绿色通道、线上迎新报到系统、电脑选购
 - [ ] 各攻略页面底部统一加微信入口
