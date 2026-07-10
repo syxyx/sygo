@@ -213,7 +213,7 @@ shaoyang-university-guide/
 - [x] 交互优化（专业sticky导航、搜索框放宽、页面过渡动画、lightbox移动端按钮）
 - [x] 全站微信复制逻辑统一（首页CTA、搜索无结果、多处一致）
 - [x] Footer加免责声明
-- [x] **新生留言墙** — 组件已接入首页（开学倒计时后，懒加载拆包）。后端选型踩坑：LeanCloud 国际版已关停→腾讯云 CloudBase 免费版有阉割/要实名→最终定 **Supabase**（`src/data/supabase.js`，永久免费免绑卡）。**待用户填 Supabase 项目 URL + anon key 才能真共享**，未填时自动回退 localStorage 本机版不影响网站
+- [x] **留言墙**（`MessageWall.jsx` + `src/data/supabase.js`）— 已上线。定位：**访客给站长提问 / 提网站修改建议**的留言板（不是新生报到打卡，早期迭代过，勿混淆）。首页开学倒计时下方，懒加载。后端选型踩坑：LeanCloud 国际版已关停→腾讯云 CloudBase 免费版有阉割/要实名→最终定 **Supabase**（永久免费免绑卡，key 已配置在 supabase.js 里，publishable key 前端公开安全）
 - [ ] **专业×宿舍查询** — 等用户收集完数据后再做
 - [ ] 补"报到前"高频缺口：学费/住宿费、助学贷款/绿色通道、线上迎新报到系统、电脑选购
 - [ ] 各攻略页面底部统一加微信入口
