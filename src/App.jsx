@@ -10,7 +10,6 @@ import Pitfalls from './pages/Pitfalls';
 import Majors from './pages/Majors';
 import QA from './pages/QA';
 import About from './pages/About';
-import Finder from './pages/Finder';
 import NotFound from './pages/NotFound';
 
 export default function App() {
@@ -27,7 +26,6 @@ export default function App() {
           <Route path="/life" element={<Life />} />
           <Route path="/pitfalls" element={<Pitfalls />} />
           <Route path="/majors" element={<Majors />} />
-          <Route path="/finder" element={<Finder />} />
           <Route path="/qa" element={<QA />} />
           <Route path="/about" element={<About />} />
           <Route path="*" element={<NotFound />} />
