@@ -134,6 +134,8 @@ shaoyang-university-guide/
 - 敏感词过滤：`MessageWall.jsx` 里的 `BANNED` 数组，命中会变 `*`，可自行增词
 - **公开回复留言（网页内）**：留言框打暗号「回复」→ 密码框 → 站长密码解锁回复模式 → 展开列表点「回复」直接写。站长账号 `owner@sygo.top`（Supabase Auth，密码在后台设，代码里无密码）。安全靠 RLS update 策略（仅 `auth.uid()` 非空可改）。也可继续在 Table Editor 手改 `reply` 单元格
 - **微信通知**：Server酱/方糖 客户端推送，SENDKEY 在 `src/data/notify.js`；被骚扰就去后台重置 SENDKEY 再换上
+- **关键经验/踩坑**：① 纯静态站(GitHub Pages)通知只能从访客浏览器发→用支持 GET 的服务(Server酱)配 `no-cors`；企业微信/钉钉的 POST webhook 浏览器 CORS 过不了。② 数据层一律 `select('*')`，加字段(如 reply)前后都不报错。③ 免费选型踩了三家：LeanCloud 国际版**已关停**、腾讯云 CloudBase 免费版有阉割+要实名、PushPlus 要实名收费；能白嫖且免实名的是 **Supabase + Server酱**。④ 前端"暗号"只唤 UI，真安全靠 RLS(登录才能写)，别为省事放开 public update(会被人改/删全部留言)。
+- **下一步/待清理**：墙里有测试留言（当前 5 条含测试），可在 Table Editor 删掉；其余按需迭代
 
 ## 用户偏好
 - 所有交流使用中文
