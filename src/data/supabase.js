@@ -38,8 +38,9 @@ function getClient() {
 function normalize(row) {
   return {
     id: row.id,
-    major: row.major || '匿名新生',
+    major: row.major || '',
     text: row.text || '',
+    reply: row.reply || '',
     time: row.created_at ? new Date(row.created_at).getTime() : Date.now(),
   };
 }
@@ -49,7 +50,7 @@ export async function fetchMessages() {
   if (!isConfigured()) return [];
   const { data, error } = await getClient()
     .from(TABLE)
-    .select('id, major, text, created_at')
+    .select('*')
     .order('created_at', { ascending: false })
     .limit(MAX_FETCH);
   if (error) throw error;
@@ -62,7 +63,7 @@ export async function addMessage(major, text) {
   const { data, error } = await getClient()
     .from(TABLE)
     .insert({ major, text })
-    .select('id, major, text, created_at')
+    .select('*')
     .single();
   if (error) throw error;
   return normalize(data);

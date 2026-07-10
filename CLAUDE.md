@@ -132,6 +132,8 @@ shaoyang-university-guide/
 - 组件 `src/components/MessageWall.jsx`，首页懒加载接入（开学倒计时下方）；未配置 key 时自动回退 localStorage
 - **删留言（人工审核，用户常问）**：登录 https://supabase.com/dashboard → 选项目 → 左侧 **Table Editor** → **messages** 表 → 勾选要删的行 → 右上 **Delete** → 确认。可多选批量删。删除永久不可恢复
 - 敏感词过滤：`MessageWall.jsx` 里的 `BANNED` 数组，命中会变 `*`，可自行增词
+- **公开回复留言**：Table Editor → messages 表 → 找到那条 → 编辑 `reply` 单元格填回复 → 保存；前端该留言下方即显示「🎓 学长回复」（前提：已加 `reply` 字段）。数据层用 `select('*')`，字段没建也不报错
+- **微信通知**：PushPlus 客户端推送，token 在 `src/data/notify.js`；被骚扰就去 pushplus 重置 token 再换上
 
 ## 用户偏好
 - 所有交流使用中文
@@ -198,7 +200,8 @@ shaoyang-university-guide/
 - 护理、助产、医检、影像、康复
 
 ## 待办
-- [ ] **留言墙：新留言通知站长**（用户 2026-07-10 采纳，排在弹幕改造之后做）— 有人留言时用 Supabase 数据库触发器/Webhook 发邮件或微信通知，避免漏看提问
+- [x] **留言墙：新留言微信通知**（2026-07-10）— 方案 PushPlus 客户端推送（`src/data/notify.js`，发言即从前端 no-cors 推到站长微信）。**待用户填 pushplus token** 才生效，未填自动跳过
+- [x] **留言墙：公开回复**（2026-07-10）— messages 表加 `reply` 字段，站长在 Supabase Table Editor 填 reply，前端「查看全部留言」中该条下方显示「🎓 学长回复」。**需在 Supabase 跑 `alter table messages add column reply text;`**
 - [x] **留言墙：弹幕化**（2026-07-10 完成）— 留言在一块区域里像 B站弹幕从右往左飘（`.danmaku-area`/`danmakuFloat` in index.css，引擎在 MessageWall.jsx：定时循环放送+发言即飞+悬停暂停），下方「查看全部留言」可展开完整列表
 - [x] 网站加图片（14张真实照片已上线）
 - [x] 移动端体验优化

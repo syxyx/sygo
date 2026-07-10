@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { isConfigured, fetchMessages, addMessage, MAX_FETCH } from '../data/supabase';
+import { notifyNewMessage } from '../data/notify';
 
 const STORAGE_KEY = 'sygo_message_wall';
 const COOLDOWN = 10000; // 10秒冷却
@@ -126,6 +127,7 @@ export default function MessageWall() {
         const saved = await addMessage('', t);
         setMessages(prev => [saved, ...prev]);
         spawn(saved);            // 自己发的立刻飞一条
+        notifyNewMessage(t);     // 微信通知站长（配了 token 才发）
         setText('');
         startCooldown();
       } catch {
@@ -284,6 +286,12 @@ export default function MessageWall() {
                         <span style={{ fontSize: '0.72rem', color: '#A0AEC0' }}>{fmtTime(msg.time)}</span>
                       </div>
                       <p style={{ fontSize: '0.92rem', color: '#636E72', lineHeight: 1.6 }}>{msg.text}</p>
+                      {msg.reply && (
+                        <div style={{ marginTop: 10, padding: '10px 12px', borderRadius: 10, background: 'rgba(255,107,53,0.08)', borderLeft: '3px solid #FF6B35' }}>
+                          <span style={{ fontSize: '0.8rem', fontWeight: 700, color: '#FF6B35' }}>🎓 学长回复</span>
+                          <p style={{ fontSize: '0.9rem', color: '#636E72', lineHeight: 1.6, marginTop: 4 }}>{msg.reply}</p>
+                        </div>
+                      )}
                     </div>
                   );
                 })}
