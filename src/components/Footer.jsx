@@ -33,6 +33,7 @@ export default function Footer() {
         </div>
         <div className="footer-bottom">
           <p>© 2026 {siteInfo.name} | 有问题加学长微信 📱 {aboutContent.contact.phone}</p>
+          <p style={{ fontSize: '0.8rem', color: '#A0AEC0', marginTop: 6 }}>本站为非官方网站，内容仅供参考，以学校官方通知为准</p>
         </div>
       </div>
     </footer>
