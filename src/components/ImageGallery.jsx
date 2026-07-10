@@ -63,9 +63,9 @@ export default function ImageGallery({ images = [], columns = 2, title }) {
 
       {/* Lightbox */}
       {lightbox !== null && (
-        <div style={overlay} onClick={close}>
-          <button style={closeBtn} onClick={close}>✕</button>
-          <button style={arrow('left')} onClick={(e) => { e.stopPropagation(); prev(); }}>‹</button>
+        <div style={overlay} onClick={close} className="lightbox-overlay">
+          <button style={closeBtn} onClick={close} className="lightbox-close">✕</button>
+          <button style={arrow('left')} onClick={(e) => { e.stopPropagation(); prev(); }} className="lightbox-arrow lightbox-prev">‹</button>
           <img
             src={images[lightbox].src}
             alt={images[lightbox].caption || ''}
@@ -76,7 +76,7 @@ export default function ImageGallery({ images = [], columns = 2, title }) {
             <p style={lightboxCaption}>{images[lightbox].caption}</p>
           )}
           <p style={counter}>{lightbox + 1} / {images.length}</p>
-          <button style={arrow('right')} onClick={(e) => { e.stopPropagation(); next(); }}>›</button>
+          <button style={arrow('right')} onClick={(e) => { e.stopPropagation(); next(); }} className="lightbox-arrow lightbox-next">›</button>
         </div>
       )}
     </>
