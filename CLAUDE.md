@@ -49,8 +49,24 @@ shaoyang-university-guide/
 │   ├── data/content.js         # 所有页面内容数据（微信号在此修改）
 │   ├── data/searchIndex.js     # 搜索索引
 │   ├── components/             # Navbar, Footer, ScrollReveal, BackToTop, SearchBar, Countdown, ImageGallery, ScrollToTop
+│   ├── utils/scrollToAnchor.js # 搜索结果滚动到页内锚点（偏移+重试+校正）
 │   └── pages/                  # Home, Prepare, Life, Pitfalls, Majors, QA, About
 ```
+
+## 最新改动（2026-07-10）
+
+### 官网数据核对（以官网原文为准）
+- `curl` 抓官网《学校简介》`hnsyu.edu.cn/xygk/xxjj.htm` 逐条核对
+- **修正校区**：官网只出现"七里坪""李子园"，删除查无实据的"江北""西湖"（`content.js` campuses + `searchIndex.js`）
+- 官网权威数字备查：22 个二级学院、51 个本科招生专业、在校生 27593 人、6 个省应用特色学科、国家级+省级一流专业建设点 31 个、11 大学科门类
+
+### 搜索引擎锚点定位（修复）
+- 问题：搜索点击只跳页面顶部，折叠的 QA/避坑看不到答案
+- 方案：索引每条加 `anchor` → 页面板块挂 `id` → `scrollToAnchor` 工具（导航栏偏移+重试+校正）→ `ScrollToTop`/`SearchBar` 走路由 state → QA/Pitfalls 监听 state 自动展开
+- 新增 `src/utils/scrollToAnchor.js`
+- 锚点命名：prepare-*/life-*/major-{i}/major-transfer/about-*/qa-{i}/qa-contact/pitfall-{分类}-{条目}
+- Playwright 实测 3 场景通过（滚到目标距顶约 84px = 导航栏下方，折叠项自动展开）
+- 详见 `CC-Session-Logs/10-07-2026-10_40-官网核对与搜索锚点定位.md`
 
 ## 最新改动（2026-07-09）
 
