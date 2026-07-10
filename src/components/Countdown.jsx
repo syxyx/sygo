@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-// 开学日期：2026年9月1日（可调整）
+// 开学日期：2026年9月13日（可调整）
 const TARGET_DATE = new Date('2026-09-13T08:00:00');
 
 function calcTimeLeft() {
