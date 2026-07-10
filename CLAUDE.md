@@ -132,8 +132,8 @@ shaoyang-university-guide/
 - 组件 `src/components/MessageWall.jsx`，首页懒加载接入（开学倒计时下方）；未配置 key 时自动回退 localStorage
 - **删留言（人工审核，用户常问）**：登录 https://supabase.com/dashboard → 选项目 → 左侧 **Table Editor** → **messages** 表 → 勾选要删的行 → 右上 **Delete** → 确认。可多选批量删。删除永久不可恢复
 - 敏感词过滤：`MessageWall.jsx` 里的 `BANNED` 数组，命中会变 `*`，可自行增词
-- **公开回复留言**：Table Editor → messages 表 → 找到那条 → 编辑 `reply` 单元格填回复 → 保存；前端该留言下方即显示「🎓 学长回复」（前提：已加 `reply` 字段）。数据层用 `select('*')`，字段没建也不报错
-- **微信通知**：PushPlus 客户端推送，token 在 `src/data/notify.js`；被骚扰就去 pushplus 重置 token 再换上
+- **公开回复留言（网页内）**：留言框打暗号「回复」→ 密码框 → 站长密码解锁回复模式 → 展开列表点「回复」直接写。站长账号 `owner@sygo.top`（Supabase Auth，密码在后台设，代码里无密码）。安全靠 RLS update 策略（仅 `auth.uid()` 非空可改）。也可继续在 Table Editor 手改 `reply` 单元格
+- **微信通知**：Server酱/方糖 客户端推送，SENDKEY 在 `src/data/notify.js`；被骚扰就去后台重置 SENDKEY 再换上
 
 ## 用户偏好
 - 所有交流使用中文
@@ -200,8 +200,8 @@ shaoyang-university-guide/
 - 护理、助产、医检、影像、康复
 
 ## 待办
-- [x] **留言墙：新留言微信通知**（2026-07-10）— 方案 PushPlus 客户端推送（`src/data/notify.js`，发言即从前端 no-cors 推到站长微信）。**待用户填 pushplus token** 才生效，未填自动跳过
-- [x] **留言墙：公开回复**（2026-07-10）— messages 表加 `reply` 字段，站长在 Supabase Table Editor 填 reply，前端「查看全部留言」中该条下方显示「🎓 学长回复」。**需在 Supabase 跑 `alter table messages add column reply text;`**
+- [x] **留言墙：新留言微信通知**（2026-07-10）— 方案 Server酱/方糖 客户端推送（`src/data/notify.js`，发言即从前端 no-cors GET 推到站长微信）。**待用户填 SENDKEY** 才生效，未填自动跳过。（曾试 PushPlus，用户反馈要实名收费，弃用）
+- [x] **留言墙：公开回复（网页内，暗号+密码）**（2026-07-10）— 留言框打暗号「回复」→ 弹密码框 → Supabase Auth 登录(`owner@sygo.top`)→ 解锁回复模式，展开列表点「回复」直接写。安全靠 RLS：只有登录站长(`auth.uid()` 非空)能 update，访客改不了。**待用户在 Supabase：① Authentication 建 owner@sygo.top 账号(勾自动确认) ② 跑「加 reply 字段 + update 策略」的 SQL**。前端 `MessageWall.jsx`+数据层 `supabase.js`
 - [x] **留言墙：弹幕化**（2026-07-10 完成）— 留言在一块区域里像 B站弹幕从右往左飘（`.danmaku-area`/`danmakuFloat` in index.css，引擎在 MessageWall.jsx：定时循环放送+发言即飞+悬停暂停），下方「查看全部留言」可展开完整列表
 - [x] 网站加图片（14张真实照片已上线）
 - [x] 移动端体验优化

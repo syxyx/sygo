@@ -68,3 +68,35 @@ export async function addMessage(major, text) {
   if (error) throw error;
   return normalize(data);
 }
+
+// —— 站长登录（用于网页内回复）——
+// 邮箱只是登录标识、不是机密；密码由你在 Supabase 后台设，代码里不出现。
+const OWNER_EMAIL = 'owner@sygo.top';
+
+export async function signInOwner(password) {
+  const { data, error } = await getClient().auth.signInWithPassword({ email: OWNER_EMAIL, password });
+  if (error) throw error;
+  return data;
+}
+
+export async function signOutOwner() {
+  try { await getClient().auth.signOut(); } catch { /* 忽略 */ }
+}
+
+export async function isOwnerLoggedIn() {
+  if (!isConfigured()) return false;
+  const { data } = await getClient().auth.getSession();
+  return Boolean(data && data.session);
+}
+
+// 写回复（需已登录站长身份，靠数据库 RLS 保证只有你能写）
+export async function updateReply(id, reply) {
+  const { data, error } = await getClient()
+    .from(TABLE)
+    .update({ reply })
+    .eq('id', id)
+    .select('*')
+    .single();
+  if (error) throw error;
+  return normalize(data);
+}
