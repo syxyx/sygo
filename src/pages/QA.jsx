@@ -1,13 +1,15 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import ScrollReveal from '../components/ScrollReveal';
 import { qaContent, aboutContent } from '../data/content';
+import { scrollToAnchor } from '../utils/scrollToAnchor';
 
 // 单个 FAQ 项：用 max-height + ref 实现平滑展开/收起
-function FaqItem({ item, isOpen, onToggle }) {
+function FaqItem({ item, isOpen, onToggle, anchorId }) {
   const bodyRef = useRef(null);
 
   return (
-    <div style={{
+    <div id={anchorId} style={{
       background: '#fff', borderRadius: 14, boxShadow: '0 2px 12px rgba(0,0,0,0.04)',
       overflow: 'hidden', border: isOpen ? '1px solid #FF6B35' : '1px solid transparent',
       transition: 'border 0.3s',
@@ -48,6 +50,22 @@ export default function QA() {
   const [openIndex, setOpenIndex] = useState(null);
   const [copied, setCopied] = useState(false);
   const phone = aboutContent.contact.phone;
+  const location = useLocation();
+
+  // 从搜索跳转过来时：自动展开对应问题并滚动过去
+  useEffect(() => {
+    const anchor = location.state?.anchor;
+    if (!anchor) return;
+    const m = anchor.match(/^qa-(\d+)$/);
+    if (m) {
+      const idx = Number(m[1]);
+      setOpenIndex(idx);
+      // 展开后再滚动（scrollToAnchor 自带重试与位置校正）
+      scrollToAnchor(anchor);
+    } else if (anchor === 'qa-contact') {
+      scrollToAnchor('qa-contact');
+    }
+  }, [location.state]);
 
   const copyPhone = async () => {
     try {
@@ -86,6 +104,7 @@ export default function QA() {
               <ScrollReveal key={i}>
                 <FaqItem
                   item={item}
+                  anchorId={`qa-${i}`}
                   isOpen={openIndex === i}
                   onToggle={() => setOpenIndex(openIndex === i ? null : i)}
                 />
@@ -94,7 +113,7 @@ export default function QA() {
           </div>
 
           {/* 加微信 */}
-          <ScrollReveal>
+          <ScrollReveal id="qa-contact">
             <div style={{
               background: 'linear-gradient(135deg, #F8F9FC, #FFF3E0)', borderRadius: 20,
               padding: '40px 32px', textAlign: 'center',

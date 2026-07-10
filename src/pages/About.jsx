@@ -12,7 +12,7 @@ export default function About() {
         <div className="container" style={{ maxWidth: 700, margin: '0 auto' }}>
 
           {/* 介绍 */}
-          <ScrollReveal>
+          <ScrollReveal id="about-intro">
             <div style={{ background: '#fff', borderRadius: 16, padding: '36px 32px', boxShadow: '0 4px 16px rgba(0,0,0,0.05)', marginBottom: 24 }}>
               {aboutContent.intro.map((p, i) => (
                 <p key={i} style={{ fontSize: '1rem', color: '#636E72', lineHeight: 2, textIndent: '2em', marginBottom: i < aboutContent.intro.length - 1 ? 8 : 0 }}>
@@ -23,7 +23,7 @@ export default function About() {
           </ScrollReveal>
 
           {/* 联系方式 */}
-          <ScrollReveal>
+          <ScrollReveal id="about-contact">
             <div style={{ background: 'linear-gradient(135deg, #FF6B35, #FF416C)', borderRadius: 16, padding: '36px 32px', color: '#fff', textAlign: 'center', marginBottom: 24 }}>
               <h3 style={{ fontSize: '1.3rem', fontWeight: 700, marginBottom: 12 }}>{aboutContent.contact.title}</h3>
               <p style={{ fontSize: '2rem', fontWeight: 900, marginBottom: 12 }}>{aboutContent.contact.phone}</p>

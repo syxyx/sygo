@@ -17,7 +17,7 @@ export default function Majors() {
           </ScrollReveal>
 
           {majorsContent.colleges.map((col, i) => (
-            <ScrollReveal key={i}>
+            <ScrollReveal key={i} id={`major-${i}`}>
               <div style={{ background: '#fff', borderRadius: 16, padding: '28px 32px', marginBottom: 20, boxShadow: '0 4px 16px rgba(0,0,0,0.05)' }}>
                 <h3 style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: 4 }}>{col.icon} {col.name}</h3>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 16 }}>
@@ -32,7 +32,7 @@ export default function Majors() {
           ))}
 
           {/* 转专业 */}
-          <ScrollReveal>
+          <ScrollReveal id="major-transfer">
             <div style={{ background: '#FFF8F5', borderRadius: 16, padding: '28px 32px', border: '1px solid #FFE0D0' }}>
               <h3 style={{ fontSize: '1.15rem', fontWeight: 700, marginBottom: 8 }}>{majorsContent.transfer.title}</h3>
               <p style={{ fontSize: '0.94rem', color: '#636E72', lineHeight: 1.8 }}>{majorsContent.transfer.content}</p>

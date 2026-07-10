@@ -1,10 +1,26 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import ScrollReveal from '../components/ScrollReveal';
 import { pitfallsContent } from '../data/content';
+import { scrollToAnchor } from '../utils/scrollToAnchor';
 
 export default function Pitfalls() {
   const [openCat, setOpenCat] = useState(null);
   const [openItem, setOpenItem] = useState(null);
+  const location = useLocation();
+
+  // 从搜索跳转过来时：自动展开对应分类+条目并滚动过去
+  useEffect(() => {
+    const anchor = location.state?.anchor;
+    if (!anchor) return;
+    const m = anchor.match(/^pitfall-(\d+)-(\d+)$/);
+    if (m) {
+      const ci = Number(m[1]);
+      setOpenCat(ci);
+      setOpenItem(`${ci}-${Number(m[2])}`);
+      scrollToAnchor(anchor);
+    }
+  }, [location.state]);
 
   return (
     <>
@@ -35,7 +51,7 @@ export default function Pitfalls() {
                 {openCat === ci && (
                   <div style={{ padding: '0 28px 24px' }}>
                     {cat.items.map((item, ii) => (
-                      <div key={ii} style={{ borderTop: '1px solid #f0f0f0' }}>
+                      <div key={ii} id={`pitfall-${ci}-${ii}`} style={{ borderTop: '1px solid #f0f0f0' }}>
                         <button
                           onClick={() => setOpenItem(openItem === `${ci}-${ii}` ? null : `${ci}-${ii}`)}
                           style={{

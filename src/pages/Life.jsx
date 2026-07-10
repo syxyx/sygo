@@ -31,7 +31,7 @@ export default function Life() {
         <div className="container" style={{ maxWidth: 800, margin: '0 auto' }}>
 
           {/* 宿舍 */}
-          <ScrollReveal>
+          <ScrollReveal id="life-dorm">
             <div style={card}>
               <h2 style={h2}>{dorm.title}</h2>
               <p style={p}>{dorm.intro}</p>
@@ -55,7 +55,7 @@ export default function Life() {
           </ScrollReveal>
 
           {/* 食堂 */}
-          <ScrollReveal>
+          <ScrollReveal id="life-canteen">
             <div style={card}>
               <h2 style={h2}>{canteen.title}</h2>
               <p style={p}>{canteen.intro}</p>
@@ -73,7 +73,7 @@ export default function Life() {
           </ScrollReveal>
 
           {/* 生活费 */}
-          <ScrollReveal>
+          <ScrollReveal id="life-money">
             <div style={card}>
               <h2 style={h2}>{money.title}</h2>
               <p style={p}>{money.intro}</p>
@@ -91,7 +91,7 @@ export default function Life() {
           </ScrollReveal>
 
           {/* 兼职 */}
-          <ScrollReveal>
+          <ScrollReveal id="life-parttime">
             <div style={card}>
               <h2 style={h2}>{parttime.title}</h2>
               <p style={p}>{parttime.intro}</p>
@@ -105,7 +105,7 @@ export default function Life() {
           </ScrollReveal>
 
           {/* 社团 */}
-          <ScrollReveal>
+          <ScrollReveal id="life-clubs">
             <div style={card}>
               <h2 style={h2}>{clubs.title}</h2>
               <p style={p}>{clubs.intro}</p>

@@ -14,7 +14,7 @@ export default function Prepare() {
         <div className="container" style={{ maxWidth: 800, margin: '0 auto' }}>
 
           {/* 必带清单 */}
-          <ScrollReveal>
+          <ScrollReveal id="prepare-checklist">
             <div style={cardStyle}>
               <h2 style={h2Style}>{checklist.title}</h2>
               <p style={pStyle}>{checklist.intro}</p>
@@ -31,7 +31,7 @@ export default function Prepare() {
           </ScrollReveal>
 
           {/* 不用带 */}
-          <ScrollReveal>
+          <ScrollReveal id="prepare-dontbring">
             <div style={{ ...cardStyle, background: '#FFF8F5', border: '1px solid #FFE0D0' }}>
               <h2 style={h2Style}>{dontBring.title}</h2>
               <p style={pStyle}>{dontBring.intro}</p>
@@ -42,7 +42,7 @@ export default function Prepare() {
           </ScrollReveal>
 
           {/* 军训 */}
-          <ScrollReveal>
+          <ScrollReveal id="prepare-military">
             <div style={cardStyle}>
               <h2 style={h2Style}>{military.title}</h2>
               <p style={pStyle}>{military.intro}</p>
@@ -56,7 +56,7 @@ export default function Prepare() {
           </ScrollReveal>
 
           {/* 交通 */}
-          <ScrollReveal>
+          <ScrollReveal id="prepare-transport">
             <div style={cardStyle}>
               <h2 style={h2Style}>{transport.title}</h2>
               {transport.items.map((item, i) => (
@@ -66,7 +66,7 @@ export default function Prepare() {
           </ScrollReveal>
 
           {/* 报到流程 */}
-          <ScrollReveal>
+          <ScrollReveal id="prepare-process">
             <div style={cardStyle}>
               <h2 style={h2Style}>{process.title}</h2>
               {process.steps.map((s, i) => (

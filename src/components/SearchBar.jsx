@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import searchIndex from '../data/searchIndex';
 import './SearchBar.css';
 
@@ -11,6 +11,7 @@ export default function SearchBar({ variant = 'nav' }) {
   const inputRef = useRef(null);
   const containerRef = useRef(null);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     if (!query.trim()) {
@@ -86,7 +87,13 @@ export default function SearchBar({ variant = 'nav' }) {
   const goTo = (item) => {
     setOpen(false);
     setQuery('');
-    navigate(item.path);
+    // 统一走路由 state：跨页由 ScrollToTop 处理，同页因 state 变化也会重新触发
+    // 各页面的滚动与「折叠项自动展开」都监听 location.state
+    if (item.path === location.pathname && !item.anchor) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      navigate(item.path, { state: item.anchor ? { anchor: item.anchor } : undefined });
+    }
   };
 
   const isHero = variant === 'hero';

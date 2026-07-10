@@ -1,13 +1,19 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { scrollToAnchor } from '../utils/scrollToAnchor';
 
-// 路由切换时回到页面顶部（否则新页面会停在上一页的滚动位置）
+// 路由切换时：带锚点则滚到对应条目，否则回到页面顶部
 export default function ScrollToTop() {
-  const { pathname } = useLocation();
+  const { pathname, state } = useLocation();
 
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
-  }, [pathname]);
+    const anchor = state?.anchor;
+    if (anchor) {
+      scrollToAnchor(anchor);
+    } else {
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    }
+  }, [pathname, state]);
 
   return null;
 }

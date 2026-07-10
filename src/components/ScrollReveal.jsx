@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
-export default function ScrollReveal({ children, className = '' }) {
+export default function ScrollReveal({ children, className = '', id }) {
   const ref = useRef(null);
   const [visible, setVisible] = useState(false);
 
@@ -21,7 +21,7 @@ export default function ScrollReveal({ children, className = '' }) {
   }, []);
 
   return (
-    <div ref={ref} className={`reveal ${visible ? 'visible' : ''} ${className}`}>
+    <div id={id} ref={ref} className={`reveal ${visible ? 'visible' : ''} ${className}`}>
       {children}
     </div>
   );
