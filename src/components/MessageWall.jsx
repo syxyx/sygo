@@ -10,8 +10,8 @@ const LANES = 5;                 // 轨道数
 const LANE_H = 40;               // 每条轨道高度(px)
 const TOP_BASE = 12;
 const AREA_H = TOP_BASE + LANES * LANE_H + 12; // 弹幕区总高
-const SPAWN_MS = 1600;           // 每隔多久放出一条
-const MAX_ACTIVE = 22;           // 同屏最多弹幕数
+const SPAWN_MS = 2600;           // 每隔多久放出一条（越大越稀）
+const MAX_ACTIVE = 14;           // 同屏最多弹幕数
 const DANMAKU_COLORS = [
   { bg: '#FFE8E0', color: '#E8590C' },
   { bg: '#FFF3CD', color: '#B8860B' },
@@ -56,6 +56,7 @@ export default function MessageWall() {
   const [copied, setCopied] = useState(false);
   const [showList, setShowList] = useState(false);
   const [flying, setFlying] = useState([]); // 当前飘动中的弹幕
+  const [paused, setPaused] = useState(false); // 暂停飘动（悬停/按住）
 
   const messagesRef = useRef([]);
   const poolIdxRef = useRef(0);
@@ -185,8 +186,16 @@ export default function MessageWall() {
           </span>
         </div>
 
-        {/* 弹幕区 */}
-        <div className="danmaku-area" style={{ height: AREA_H, marginBottom: 20 }}>
+        {/* 弹幕区（鼠标移入 / 手指按住 暂停） */}
+        <div
+          className="danmaku-area"
+          style={{ height: AREA_H, marginBottom: 20 }}
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+          onTouchStart={() => setPaused(true)}
+          onTouchEnd={() => setPaused(false)}
+          onTouchCancel={() => setPaused(false)}
+        >
           {loading ? (
             <div style={centerBox}>⏳ 留言加载中…</div>
           ) : loadError ? (
@@ -202,7 +211,7 @@ export default function MessageWall() {
                 key={f.key}
                 className="danmaku-item"
                 onAnimationEnd={() => removeFlying(f.key)}
-                style={{ top: f.top, animationDuration: `${f.dur}s`, background: f.bg, color: f.color }}
+                style={{ top: f.top, animationDuration: `${f.dur}s`, animationPlayState: paused ? 'paused' : 'running', background: f.bg, color: f.color }}
               >
                 {f.text}
               </div>

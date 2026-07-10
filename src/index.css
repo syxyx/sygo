@@ -323,10 +323,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   from { transform: translateX(0); }
   to { transform: translateX(calc(-100vw - 100%)); }
 }
-/* 桌面悬停整块暂停，方便看清 */
-@media (hover: hover) {
-  .danmaku-area:hover .danmaku-item { animation-play-state: paused; }
-}
+/* 暂停由 JS 控制（桌面移入 / 手机按住），animationPlayState 直接切换 */
 /* 尊重"减少动态效果"无障碍设置 */
 @media (prefers-reduced-motion: reduce) {
   .danmaku-item { animation: none; }
