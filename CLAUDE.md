@@ -65,8 +65,19 @@ shaoyang-university-guide/
 - 方案：索引每条加 `anchor` → 页面板块挂 `id` → `scrollToAnchor` 工具（导航栏偏移+重试+校正）→ `ScrollToTop`/`SearchBar` 走路由 state → QA/Pitfalls 监听 state 自动展开
 - 新增 `src/utils/scrollToAnchor.js`
 - 锚点命名：prepare-*/life-*/major-{i}/major-transfer/about-*/qa-{i}/qa-contact/pitfall-{分类}-{条目}
-- Playwright 实测 3 场景通过（滚到目标距顶约 84px = 导航栏下方，折叠项自动展开）
+- Playwright 实测通过（滚到目标距顶约 84px = 导航栏下方，折叠项自动展开）
 - 详见 `CC-Session-Logs/10-07-2026-10_40-官网核对与搜索锚点定位.md`
+
+### 微信分享优化（Open Graph）
+- `index.html` 加 og:title/description/image/url + twitter 卡片 + SEO description
+- 分享到微信显示带校园图的卡片（图用 `/images/campus/gate-north1.jpg`）
+- SPA 全站共用一套标签（都显示首页卡片），对"分享首页"场景够用
+- 注意：未备案域名朋友圈可能限制效果；微信对分享卡片有缓存，改后要等一段时间才刷新
+
+### 避坑指南大改（现为 6 分类 24 条）
+- 结构：0🕳️开学骗局(9) / 1📚考证与学业(1,只留四六级) / 2🍜生活日常(3) / 3💪军训(4) / 4📖社团组织(3) / 5💼兼职赚钱(4)
+- 中途试过的、被用户删掉的分类：💸智商税、📱手机网络、👥人际关系、💰消费理财、🏠宿舍相处
+- **重要经验**：避坑分类靠 `pitfall-{分类序}-{条目序}` 锚点定位。一旦删/加分类导致索引位移，`searchIndex.js` 里手写别名的锚点全要同步重排，否则搜索跳转错位。改完务必写脚本 `import { pitfallsContent }` 逐条校验锚点命中（注意 searchIndex.js 里 `from './content'` 无后缀，Node 原生 ESM 跑不了，只导 content.js 校验）
 
 ## 最新改动（2026-07-09）
 
@@ -134,6 +145,7 @@ shaoyang-university-guide/
 - [x] 搜索结果锚点定位（点击滚到条目 + 折叠项自动展开，Playwright 实测通过）
 - [ ] **做「我的专业在哪个校区」查询页**（用官网核实的校区数据）
 - [ ] 补"报到前"高频缺口：学费/住宿费、助学贷款/绿色通道、线上迎新报到系统、电脑选购
-- [ ] 微信分享优化（Open Graph 标签）
+- [x] 微信分享优化（Open Graph 标签）
+- [x] 避坑指南内容大改（6分类24条，用户逐条筛选定稿）
 - [ ] 每个攻略页面底部统一加微信入口
 - [ ] 首页加"分享给同学"引导
