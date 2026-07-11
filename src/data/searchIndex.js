@@ -135,11 +135,10 @@ add('关于本站', '邵院学长做的非官方网站，希望能帮到你', '/
 add('联系站长', aboutContent.contact.phone, '/about', '微信 联系 学长 手机 电话', 'about-contact');
 
 // ========== 学校信息 ==========
-add('邵阳学院在哪', `${siteInfo.location}，${siteInfo.founded}年建校`, '/about', '邵阳学院 在哪 地址 位置 邵阳', 'about-intro');
-add('邵阳学院有几个校区', '七里坪、李子园两个校区', '/about', '校区 几个校区 去哪', 'about-intro');
-add('七里坪校区', '主校区，大部分同学都在这里', '/about', '七里坪 校区 主校区', 'about-intro');
-add('李子园校区', '老校区，文化底蕴十足', '/about', '李子园 校区 老校区', 'about-intro');
-add('校园地图怎么看', '导航栏有校园地图链接，打开学校3D地图', '/about', '地图 校园地图 导航 怎么走', 'about-intro');
+add('邵阳学院在哪', `${siteInfo.location}，${siteInfo.founded}年建校`, '/prepare', '邵阳学院 在哪 地址 位置 邵阳', 'prepare-transport');
+add('邵阳学院有几个校区', '七里坪、李子园两个校区', '/prepare', '校区 几个校区 去哪', 'prepare-transport');
+add('七里坪校区', '主校区，大部分同学都在这里', '/prepare', '七里坪 校区 主校区', 'prepare-transport');
+add('李子园校区', '老校区，文化底蕴十足', '/prepare', '李子园 校区 老校区', 'prepare-transport');
 add('邵阳天气怎么样', '夏天热冬天湿冷，夏天短袖为主，冬天需要厚衣服', '/prepare', '天气 气候 冷 热 穿什么 温度', 'prepare-checklist');
 
 // ========== 高频搜索补充 ==========

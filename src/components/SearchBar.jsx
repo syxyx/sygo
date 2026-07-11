@@ -64,6 +64,15 @@ export default function SearchBar({ variant = 'nav' }) {
       }
     }
 
+    // 同一目的地（页面 + 锚点）只保留一条，避免自动索引与手写别名产生重复结果
+    const seen = new Set();
+    filtered = filtered.filter(item => {
+      const key = item.anchor ? `${item.path}#${item.anchor}` : `${item.path}::${item.title}`;
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+
     filtered = filtered.slice(0, 8);
     setResults(filtered);
     setOpen(true); // 有查询就展开：有结果显示结果，无结果显示引导
