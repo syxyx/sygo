@@ -88,7 +88,7 @@ export default function Home() {
         <div style={heroBg} />
         <div style={heroInner}>
           <ScrollReveal>
-            <div style={badge}>🎓 {siteInfo.shortName}学长出品</div>
+            <div style={badge}>🎓 邵院小航学长出品</div>
             <h1 style={h1Style}>{homeContent.heroTitle}</h1>
             <p style={subtitle}>{homeContent.heroSubtitle}</p>
             <p style={desc}>{homeContent.heroDesc}</p>
