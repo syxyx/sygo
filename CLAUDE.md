@@ -53,6 +53,36 @@ shaoyang-university-guide/
 │   └── pages/                  # Home, Prepare, Life, Pitfalls, Majors, QA, About
 ```
 
+## 最新改动（2026-07-11）
+
+### 首页 & 移动端
+- **开学倒计时改响应式**：内联样式→CSS 类（`.countdown*` in index.css），手机端(≤640px)四格强制一行、缩小，不再占大块
+- 首页角标「邵阳学院学长出品」→ 硬编码「**邵院小航学长出品**」（原用 `siteInfo.shortName`，改后 Home 已不引用 siteInfo，import 已删）
+
+### 加入新生群入口
+- **方案 A：加个人微信 → 站长手动拉群**（免费免维护、能撑过 100 人大群）。放弃二维码/活码：微信群二维码 **7 天过期 + 满 100 人失效**，大群只能靠人工邀请；活码多要收费/实名
+- 首页 hero 下新增蓝橙渐变卡片「👥 加入邵院新生群」；**新增全站吸底悬浮按钮** `src/components/JoinGroupFab.jsx`（左下角，避开右下 BackToTop；样式 `.join-group-fab` in index.css 含移动端安全区）；QA/首页 CTA 文案带「拉你进群」
+- Footer 移动端加 `padding-bottom:88px` 给悬浮按钮让位（Footer.css）
+
+### emoji 点缀（小范围）
+- 首页热门问题 6 条 + 百问百答 23 条，每条问题**开头点 1 个**贴切 emoji（尺度：只在条目开头一个、不堆砌）
+
+### 上线前整体体检（3 个子 agent 并行审查）+ 修复
+- stats「22 个百问百答」→「23」（实际 23 条）
+- 清理避坑黑话「dddd」→「懂的都懂」
+- 专业「52」→「51」：**合并两个通信工程** —— 删「国际学院」板块，把中外合作（英国 ARU / 学费 22000 / 双学位）并入信息学院 realTalk 一句话
+- **搜索优化**：SearchBar 结果**按目的地(path+anchor)去重**（保留手写别名的关键词价值，不删条目）；关于页校区类搜索词(在哪/几个校区/七里坪/李子园) anchor 从 `about-intro` 改指 `prepare-transport`；删「校园地图」无效搜索项（外链无站内落点）
+- **体检确认无恙**：路由零死链、图片零 404、微信号全站统一、开学日期 2026-09-13 一致、OG/favicon/404.html 齐全
+
+### 坑 & 注意
+- **命令行长命令别在输入框换行**：`claude mcp add ... -- npx @pkg` 被换行拆断只会存半条
+- Windows 下 npx 起 MCP 可能要 `cmd /c` 包裹
+
+### 进行中 / 待办
+- **Playwright MCP**（浏览器工具，让 Claude 自测网站）：已在 `~/.claude.json` user 级 mcpServers 配 `playwright`（`npx -y @playwright/mcp@latest`），**待重启后 `/mcp` 验证**；失败改 `cmd /c`；首次缺浏览器跑 `npx playwright install chromium`。详见 memory `playwright-mcp-setup`
+- 校区口径矛盾（`campuses` 仅 2 个 vs 正文有梅子井）—— 用户暂不处理
+- 关于页天气搜索词等"锦上添花"精修项
+
 ## 最新改动（2026-07-10）
 
 ### 官网数据核对（以官网原文为准）

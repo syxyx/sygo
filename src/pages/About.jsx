@@ -109,24 +109,6 @@ export default function About() {
             </div>
           </ScrollReveal>
 
-          {/* 更新记录 */}
-          <ScrollReveal>
-            <div style={card}>
-              <h2 style={h2}>{aboutContent.changelog.title}</h2>
-              {aboutContent.changelog.items.map((item, i) => (
-                <div key={i} style={{
-                  display: 'flex', gap: 14, padding: '10px 0',
-                  borderBottom: i < aboutContent.changelog.items.length - 1 ? '1px solid #f0f0f0' : 'none',
-                }}>
-                  <span style={{
-                    fontSize: '0.78rem', color: '#A0AEC0', whiteSpace: 'nowrap',
-                    fontWeight: 500, flexShrink: 0, minWidth: 80,
-                  }}>{item.date}</span>
-                  <span style={{ fontSize: '0.92rem', color: '#636E72', lineHeight: 1.6 }}>{item.text}</span>
-                </div>
-              ))}
-            </div>
-          </ScrollReveal>
 
         </div>
       </section>
