@@ -213,10 +213,10 @@ export default function MessageWall() {
 
   const copyPhone = async () => {
     try {
-      await navigator.clipboard.writeText('a3399388639');
+      await navigator.clipboard.writeText('aa8618368a');
     } catch {
       const el = document.createElement('textarea');
-      el.value = 'a3399388639';
+      el.value = 'aa8618368a';
       document.body.appendChild(el);
       el.select();
       try { document.execCommand('copy'); } catch { /* 忽略 */ }

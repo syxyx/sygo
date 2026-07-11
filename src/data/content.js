@@ -29,7 +29,7 @@ export const homeContent = {
     { icon: '💬', title: '百问百答', desc: '有啥问啥，学长在线解答', to: '/qa' },
     { icon: '🙋', title: '关于本站', desc: '谁在帮你、怎么联系', to: '/about' },
   ],
-  contactPhone: 'a3399388639',
+  contactPhone: 'aa8618368a',
 };
 
 export const prepareContent = {
@@ -350,7 +350,7 @@ export const aboutContent = {
   // 联系方式
   contact: {
     title: '📱 加我微信',
-    phone: 'a3399388639',
+    phone: 'aa8618368a',
     tips: '有问题直接加微信问，别客气。选课、考研、兼职、谈恋爱…聊啥都行。',
   },
   // 分享引导
