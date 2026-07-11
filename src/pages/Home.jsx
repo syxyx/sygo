@@ -4,7 +4,7 @@ import ScrollReveal from '../components/ScrollReveal';
 import ImageGallery from '../components/ImageGallery';
 import Countdown from '../components/Countdown';
 import SearchBar from '../components/SearchBar';
-import { homeContent, siteInfo } from '../data/content';
+import { homeContent } from '../data/content';
 
 // 报到墙带 Supabase SDK，懒加载拆包，不拖累首屏
 const MessageWall = lazy(() => import('../components/MessageWall'));

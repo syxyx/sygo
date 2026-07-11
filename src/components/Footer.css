@@ -33,4 +33,6 @@
 
 @media (max-width: 768px) {
   .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+  /* 给左下角悬浮「进新生群」按钮留出空间，避免压住底部内容 */
+  .footer-content { padding-bottom: 88px; }
 }
