@@ -2,6 +2,7 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import BackToTop from './components/BackToTop';
+import JoinGroupFab from './components/JoinGroupFab';
 import ScrollToTop from './components/ScrollToTop';
 import Home from './pages/Home';
 import Prepare from './pages/Prepare';
@@ -33,6 +34,7 @@ export default function App() {
       </main>
       <Footer />
       <BackToTop />
+      <JoinGroupFab />
     </>
   );
 }

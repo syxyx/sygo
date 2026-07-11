@@ -62,23 +62,43 @@ const onCardLeave = e => { e.currentTarget.style.transform = 'translateY(0)'; e.
 const onTagEnter = e => { e.currentTarget.style.color = '#FF6B35'; e.currentTarget.style.borderColor = '#FF6B35'; };
 const onTagLeave = e => { e.currentTarget.style.color = '#636E72'; e.currentTarget.style.borderColor = '#E2E8F0'; };
 
+// 新生群引导卡片样式
+const groupSection = { padding: '8px 24px 36px' };
+const groupBox = { maxWidth: 620, margin: '0 auto', padding: '32px 26px', background: 'linear-gradient(135deg, #1A73E8, #FF6B35)', borderRadius: 22, color: '#fff', textAlign: 'center', boxShadow: '0 10px 30px rgba(26,115,232,0.22)' };
+const groupTitle = { fontSize: '1.5rem', fontWeight: 800, marginBottom: 10 };
+const groupDesc = { fontSize: '0.98rem', opacity: 0.95, marginBottom: 18, lineHeight: 1.75 };
+const groupNum = { fontSize: '1.4rem', fontWeight: 900, letterSpacing: 1, marginBottom: 18 };
+const groupBtn = { display: 'inline-block', padding: '14px 32px', borderRadius: 50, background: '#fff', color: '#1A73E8', fontWeight: 700, fontSize: '1.05rem', border: 'none', cursor: 'pointer', fontFamily: 'inherit' };
+
+// 复制文本到剪贴板（带降级方案）
+async function writeClipboard(text) {
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch {
+    const el = document.createElement('textarea');
+    el.value = text;
+    document.body.appendChild(el);
+    el.select();
+    try { document.execCommand('copy'); } catch { /* 忽略 */ }
+    document.body.removeChild(el);
+  }
+}
+
 export default function Home() {
   const [copied, setCopied] = useState(false);
+  const [groupCopied, setGroupCopied] = useState(false);
   const phone = homeContent.contactPhone;
 
   const copyPhone = async () => {
-    try {
-      await navigator.clipboard.writeText(phone);
-    } catch {
-      const el = document.createElement('textarea');
-      el.value = phone;
-      document.body.appendChild(el);
-      el.select();
-      try { document.execCommand('copy'); } catch { /* 忽略 */ }
-      document.body.removeChild(el);
-    }
+    await writeClipboard(phone);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+  };
+
+  const copyGroup = async () => {
+    await writeClipboard(phone);
+    setGroupCopied(true);
+    setTimeout(() => setGroupCopied(false), 2500);
   };
 
   return (
@@ -107,6 +127,24 @@ export default function Home() {
             </div>
           </ScrollReveal>
         </div>
+      </section>
+
+      {/* 加入新生群 */}
+      <section style={groupSection}>
+        <ScrollReveal>
+          <div style={groupBox}>
+            <span style={{ fontSize: '2.6rem', display: 'block', marginBottom: 6 }}>👥</span>
+            <h2 style={groupTitle}>加入邵院新生群</h2>
+            <p style={groupDesc}>
+              群里都是今年的新同学，答疑、找同专业老乡、组队报到都方便。<br />
+              加学长微信 → 拉你进群，备注一下“新生”通过更快~
+            </p>
+            <p style={groupNum}>📱 {phone}</p>
+            <button onClick={copyGroup} style={groupBtn}>
+              {groupCopied ? '✅ 微信号已复制，去微信加我' : '💬 复制微信号，进新生群'}
+            </button>
+          </div>
+        </ScrollReveal>
       </section>
 
       {/* 开学倒计时 */}
@@ -198,7 +236,7 @@ export default function Home() {
           <ScrollReveal>
             <div style={ctaBox}>
               <h2 style={ctaTitle}>还有问题？直接找我聊</h2>
-              <p style={ctaDesc}>别不好意思，谁大一不是懵过来的呢 😄</p>
+              <p style={ctaDesc}>别不好意思，谁大一不是懵过来的呢 😄 加了还能拉你进新生群～</p>
               <p style={ctaPhone}>📱 {phone}</p>
               <button onClick={copyPhone} style={{...ctaBtn, fontFamily: 'inherit', cursor: 'pointer'}}>
                 {copied ? '✅ 已复制' : '💬 加微信（点击复制）'}

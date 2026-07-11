@@ -121,7 +121,7 @@ export default function QA() {
               <span style={{ fontSize: '3rem', display: 'block', marginBottom: 12 }}>🙋</span>
               <h3 style={{ fontSize: '1.3rem', fontWeight: 700, marginBottom: 8 }}>还有问题？直接问学长</h3>
               <p style={{ color: '#636E72', marginBottom: 20, lineHeight: 1.7 }}>
-                没找到答案？加学长微信，有问题直接问<br />
+                没找到答案？加学长微信，拉你进新生群，有问题群里随时问<br />
                 平时也会在朋友圈分享校园干货~
               </p>
               <button
