@@ -46,6 +46,7 @@ export default function Navbar() {
           aria-label="菜单"
         >
           <span /><span /><span />
+          <span className="menu-toggle-text">菜单</span>
         </button>
         <div
           className={`nav-backdrop ${menuOpen ? 'open' : ''}`}

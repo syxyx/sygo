@@ -59,20 +59,27 @@
 .menu-toggle {
   display: none;
   flex-direction: column;
-  gap: 5px;
+  align-items: center;
+  gap: 4px;
   background: none;
   border: none;
   cursor: pointer;
   padding: 4px;
   z-index: 1001;
 }
-.menu-toggle span {
+.menu-toggle span:not(.menu-toggle-text) {
   display: block;
   width: 24px;
   height: 2.5px;
   border-radius: 4px;
   background: var(--text);
   transition: all 0.3s ease;
+}
+.menu-toggle-text {
+  font-size: 0.65rem;
+  color: var(--text);
+  line-height: 1;
+  font-weight: 500;
 }
 .menu-toggle.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
 .menu-toggle.open span:nth-child(2) { opacity: 0; }
