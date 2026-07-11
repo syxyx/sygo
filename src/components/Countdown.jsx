@@ -23,29 +23,16 @@ export default function Countdown() {
   }, []);
 
   return (
-    <div style={{
-      display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap',
-      marginBottom: 8,
-    }}>
+    <div className="countdown">
       {[
         { num: time.days, label: '天' },
         { num: time.hours, label: '时' },
         { num: time.minutes, label: '分' },
         { num: time.seconds, label: '秒' },
       ].map((item, i) => (
-        <div key={i} style={{
-          background: '#fff', borderRadius: 14, padding: '16px 20px',
-          boxShadow: '0 4px 16px rgba(0,0,0,0.06)', textAlign: 'center',
-          minWidth: 70,
-        }}>
-          <div style={{
-            fontSize: '2rem', fontWeight: 900,
-            background: 'linear-gradient(135deg, #FF6B35, #FF416C)',
-            WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
-          }}>
-            {String(item.num).padStart(2, '0')}
-          </div>
-          <div style={{ fontSize: '0.8rem', color: '#A0AEC0', marginTop: 4 }}>{item.label}</div>
+        <div key={i} className="countdown-box">
+          <div className="countdown-num">{String(item.num).padStart(2, '0')}</div>
+          <div className="countdown-label">{item.label}</div>
         </div>
       ))}
     </div>
