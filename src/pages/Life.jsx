@@ -35,18 +35,44 @@ export default function Life() {
             <div style={card}>
               <h2 style={h2}>{dorm.title}</h2>
               <p style={p}>{dorm.intro}</p>
-              {dorm.types.map((d, i) => (
-                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 16, padding: '16px', marginBottom: 8, background: '#F8F9FC', borderRadius: 12 }}>
-                  <span style={{ fontSize: '1.5rem' }}>{['🏆','🏆','👍','👍'][i]}</span>
-                  <div style={{ flex: 1 }}>
-                    <div style={{ fontWeight: 700 }}>{d.type} <span style={{ color: '#FF6B35' }}>{d.price}</span></div>
-                    <div style={{ fontSize: '0.85rem', color: '#A0AEC0' }}>{d.desc}</div>
+              {dorm.apartments.map((apt, i) => (
+                <div key={i} style={{ marginBottom: 24, padding: 20, background: '#F8F9FC', borderRadius: 16 }}>
+                  {/* 公寓头部 */}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 10 }}>
+                    <span style={{ fontSize: '1.6rem' }}>{['🏗️','🏆','🌊','🏥','🏘️'][i]}</span>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontWeight: 800, fontSize: '1.05rem', color: '#2D3436' }}>{apt.name}</div>
+                      <div style={{ fontSize: '0.8rem', color: '#A0AEC0' }}>{apt.location} · {apt.rooms}</div>
+                    </div>
+                    <span style={{ fontSize: '0.85rem', background: '#fff', padding: '4px 12px', borderRadius: 20, fontWeight: 600 }}>{apt.rating} {['一般','一般','推荐','超赞','天花板'][i]}</span>
                   </div>
-                  <span style={{ fontSize: '0.8rem' }}>{d.rating}</span>
+                  {/* 标签 */}
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 10 }}>
+                    {apt.tags.map((t, j) => (
+                      <span key={j} style={{ fontSize: '0.75rem', padding: '3px 10px', borderRadius: 12, background: '#fff', color: '#FF6B35', border: '1px solid #FFE0D0' }}>{t}</span>
+                    ))}
+                  </div>
+                  <p style={{ fontSize: '0.88rem', color: '#636E72', marginBottom: 14, lineHeight: 1.6 }}>{apt.desc}</p>
+                  {/* 专业分配 */}
+                  {apt.majors.male.length > 0 && (
+                    <div style={{ marginBottom: 8 }}>
+                      <span style={{ fontSize: '0.8rem', fontWeight: 700, color: '#1A73E8', marginRight: 8 }}>男生 👨</span>
+                      <span style={{ fontSize: '0.82rem', color: '#636E72', lineHeight: 1.8 }}>{apt.majors.male.join('、')}</span>
+                    </div>
+                  )}
+                  {apt.majors.female.length > 0 && (
+                    <div style={{ marginBottom: 8 }}>
+                      <span style={{ fontSize: '0.8rem', fontWeight: 700, color: '#E53E3E', marginRight: 8 }}>女生 👩</span>
+                      <span style={{ fontSize: '0.82rem', color: '#636E72', lineHeight: 1.8 }}>{apt.majors.female.join('、')}</span>
+                    </div>
+                  )}
+                  {apt.majors.note && (
+                    <p style={{ fontSize: '0.78rem', color: '#A0AEC0', marginTop: 6, fontStyle: 'italic' }}>📌 {apt.majors.note}</p>
+                  )}
                 </div>
               ))}
-              {dorm.tips.map((t, i) => (
-                <p key={i} style={{ fontSize: '0.9rem', color: '#636E72', padding: '4px 0' }}>💡 {t}</p>
+              {dorm.tips.map((t, idx) => (
+                <p key={idx} style={{ fontSize: '0.9rem', color: '#636E72', padding: '4px 0' }}>💡 {t}</p>
               ))}
               <div style={{ marginTop: 20 }}>
                 <ImageGallery images={dormImages} columns={2} title="📸 宿舍实拍" />
