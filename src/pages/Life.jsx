@@ -77,6 +77,7 @@ export default function Life() {
               <div style={{ marginTop: 20 }}>
                 <ImageGallery images={dormImages} columns={2} title="📸 宿舍实拍" />
               </div>
+              <p style={{ textAlign: 'center', fontSize: '0.85rem', color: '#A0AEC0', marginTop: 12 }}>💬 新生群有详细宿舍照片，加学长微信拉你进群~</p>
             </div>
           </ScrollReveal>
 
