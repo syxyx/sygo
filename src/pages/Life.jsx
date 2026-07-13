@@ -44,7 +44,7 @@ export default function Life() {
                       <div style={{ fontWeight: 800, fontSize: '1.05rem', color: '#2D3436' }}>{apt.name}</div>
                       <div style={{ fontSize: '0.8rem', color: '#A0AEC0' }}>{apt.location} · {apt.rooms}</div>
                     </div>
-                    <span style={{ fontSize: '0.85rem', background: '#fff', padding: '4px 12px', borderRadius: 20, fontWeight: 600 }}>{apt.rating} {['一般','一般','推荐','超赞','天花板'][i]}</span>
+                    <span style={{ fontSize: '0.85rem', background: '#fff', padding: '4px 12px', borderRadius: 20, fontWeight: 600 }}>{apt.rating}</span>
                   </div>
                   {/* 标签 */}
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 10 }}>
