@@ -45,7 +45,8 @@ add('宿舍限电多少', '限电500W，不能用大功率电器', '/life', '限
 add('宿舍门禁几点', '晚上23:00到早上6:00门禁', '/life', '门禁 关门 几点 晚归 查寝', 'life-dorm');
 add('宿舍能养宠物吗', '理论上不能，建议别养，毕业带不走也麻烦', '/life', '宠物 猫 狗 养动物', 'life-dorm');
 
-lifeContent.dorm.types.forEach(d => add(d.type, `${d.desc}`, '/life', d.type, 'life-dorm'));
+lifeContent.dorm.apartments.forEach(apt => add(apt.name, apt.desc, '/life', apt.name + ' ' + apt.location + ' ' + apt.rooms, 'life-dorm'));
+lifeContent.dorm.apartments.forEach(apt => apt.majors.male.concat(apt.majors.female).forEach(m => add(m, `住在${apt.name}，${apt.rooms}`, '/life', m + ' ' + apt.name + ' 宿舍 住在哪 住宿', 'life-dorm')));
 lifeContent.dorm.tips.forEach(t => add('宿舍小贴士', t, '/life', 'tips 贴士 建议', 'life-dorm'));
 
 // 食堂
