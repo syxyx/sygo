@@ -6,10 +6,10 @@ const { dorm, canteen, money, parttime, clubs } = lifeContent;
 
 // 宿舍实拍图片
 const dormImages = [
-  { src: '/images/dorm/leshan.jpg', caption: '乐山公寓' },
-  { src: '/images/dorm/caiqin.jpg', caption: '采芹公寓' },
-  { src: '/images/dorm/xinglin.jpg', caption: '杏林公寓' },
-  { src: '/images/dorm/panyong.jpg', caption: '泮水公寓' },
+  { src: '/images/dorm/leshan-2.jpg', caption: '乐山公寓' },
+  { src: '/images/dorm/caiqin-2.jpg', caption: '采芹公寓' },
+  { src: '/images/dorm/xinglin-2.jpg', caption: '杏林公寓' },
+  { src: '/images/dorm/panyong-2.jpg', caption: '泮水公寓' },
 ];
 
 // 食堂实拍图片
