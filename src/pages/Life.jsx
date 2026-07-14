@@ -53,6 +53,17 @@ export default function Life() {
                     ))}
                   </div>
                   <p style={{ fontSize: '0.88rem', color: '#636E72', marginBottom: 14, lineHeight: 1.6 }}>{apt.desc}</p>
+                  {/* 公寓图片 */}
+                  {apt.image && (
+                    <div style={{ marginBottom: 14, borderRadius: 12, overflow: 'hidden' }}>
+                      <img src={apt.image} alt={apt.name} style={{ width: '100%', display: 'block' }} />
+                    </div>
+                  )}
+                  {!apt.image && (
+                    <div style={{ marginBottom: 14, padding: '32px 16px', borderRadius: 12, background: '#F0F0F0', textAlign: 'center', color: '#A0AEC0', fontSize: '0.85rem' }}>
+                      📷 图片待补充
+                    </div>
+                  )}
                   {/* 专业分配 */}
                   {apt.majors.male.length > 0 && (
                     <div style={{ marginBottom: 8 }}>
