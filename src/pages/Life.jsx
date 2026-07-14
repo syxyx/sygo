@@ -10,6 +10,7 @@ const dormImages = [
   { src: '/images/dorm/caiqin-2.jpg', caption: '采芹公寓' },
   { src: '/images/dorm/xinglin-2.jpg', caption: '杏林公寓' },
   { src: '/images/dorm/panyong-2.jpg', caption: '泮水公寓' },
+  { src: '/images/dorm/liziyuan.jpg', caption: '李子园校区宿舍' },
 ];
 
 // 食堂实拍图片
