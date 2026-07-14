@@ -1,3 +1,5 @@
+import { useState, useCallback, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import ScrollReveal from '../components/ScrollReveal';
 import ImageGallery from '../components/ImageGallery';
 import { lifeContent } from '../data/content';
@@ -22,6 +24,15 @@ const canteenImages = [
 ];
 
 export default function Life() {
+  const [lightbox, setLightbox] = useState(null);
+  const close = useCallback(() => setLightbox(null), []);
+  useEffect(() => {
+    if (!lightbox) return;
+    const onKey = (e) => { if (e.key === 'Escape') close(); };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [lightbox, close]);
+
   return (
     <>
       <div className="page-header">
@@ -56,7 +67,7 @@ export default function Life() {
                   <p style={{ fontSize: '0.88rem', color: '#636E72', marginBottom: 14, lineHeight: 1.6 }}>{apt.desc}</p>
                   {/* 公寓图片 */}
                   {apt.image && (
-                    <div style={{ marginBottom: 14, borderRadius: 12, overflow: 'hidden' }}>
+                    <div style={{ marginBottom: 14, borderRadius: 12, overflow: 'hidden', cursor: 'pointer' }} onClick={() => setLightbox(apt.image)}>
                       <img src={apt.image} alt={apt.name} style={{ width: '100%', display: 'block' }} />
                     </div>
                   )}
@@ -153,9 +164,23 @@ export default function Life() {
 
         </div>
       </section>
+
+      {/* 公寓图片 Lightbox */}
+      {lightbox && createPortal(
+        <div style={overlay} onClick={close}>
+          <button style={closeBtn} onClick={close}>✕</button>
+          <img src={lightbox} alt="" style={lightboxImg} onClick={(e) => e.stopPropagation()} />
+        </div>,
+        document.body
+      )}
     </>
   );
 }
 const card = { background: '#fff', borderRadius: 16, padding: '32px', boxShadow: '0 4px 16px rgba(0,0,0,0.05)', marginBottom: 24 };
 const h2 = { fontSize: '1.3rem', fontWeight: 700, marginBottom: 12, color: '#2D3436' };
 const p = { fontSize: '0.95rem', color: '#636E72', lineHeight: 1.8, marginBottom: 16 };
+
+// Lightbox styles
+const overlay = { position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.88)', zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center' };
+const closeBtn = { position: 'absolute', top: 20, right: 20, background: 'rgba(255,255,255,0.15)', border: 'none', color: '#fff', fontSize: '1.4rem', width: 44, height: 44, borderRadius: '50%', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' };
+const lightboxImg = { maxWidth: '90vw', maxHeight: '85vh', objectFit: 'contain', borderRadius: 8 };
