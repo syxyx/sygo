@@ -1,4 +1,5 @@
 import { useState, useCallback, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 
 /**
  * 可复用的图片画廊组件
@@ -61,8 +62,8 @@ export default function ImageGallery({ images = [], columns = 2, title }) {
         ))}
       </div>
 
-      {/* Lightbox */}
-      {lightbox !== null && (
+      {/* Lightbox — Portal 到 body 避免 ScrollReveal 的 transform 破坏 fixed 定位 */}
+      {lightbox !== null && createPortal(
         <div style={overlay} onClick={close} className="lightbox-overlay">
           <button style={closeBtn} onClick={close} className="lightbox-close">✕</button>
           <button style={arrow('left')} onClick={(e) => { e.stopPropagation(); prev(); }} className="lightbox-arrow lightbox-prev">‹</button>
@@ -77,7 +78,8 @@ export default function ImageGallery({ images = [], columns = 2, title }) {
           )}
           <p style={counter}>{lightbox + 1} / {images.length}</p>
           <button style={arrow('right')} onClick={(e) => { e.stopPropagation(); next(); }} className="lightbox-arrow lightbox-next">›</button>
-        </div>
+        </div>,
+        document.body
       )}
     </>
   );
