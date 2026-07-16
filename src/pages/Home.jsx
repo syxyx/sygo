@@ -40,7 +40,9 @@ const badge = { display: 'inline-block', padding: '6px 18px', borderRadius: 50, 
 const h1Style = { fontSize: 'clamp(2rem, 5vw, 3rem)', fontWeight: 900, marginBottom: 12, color: '#2D3436' };
 const subtitle = { fontSize: 'clamp(1.1rem, 3vw, 1.4rem)', color: '#636E72', marginBottom: 8 };
 const desc = { fontSize: '1rem', color: '#A0AEC0', marginBottom: 36, lineHeight: 1.7 };
-const searchWrap = { margin: '0 auto 48px' };
+const searchWrap = { margin: '0 auto 24px' };
+const navTip = { maxWidth: 440, margin: '0 auto 48px', padding: '14px 18px', background: '#FFF7F0', borderRadius: 12, borderLeft: '3px solid #FF6B35', display: 'flex', alignItems: 'center', gap: 10, fontSize: '0.92rem', color: '#5D3A1A', lineHeight: 1.6, textAlign: 'left', fontWeight: 500 };
+const navTipIcon = { fontSize: '1.3rem', flexShrink: 0 };
 const hotLabel = { fontSize: '0.85rem', color: '#A0AEC0', marginBottom: 12 };
 const hotTags = { display: 'flex', flexWrap: 'wrap', gap: 8, justifyContent: 'center', marginBottom: 48 };
 const tag = { padding: '8px 16px', borderRadius: 50, background: '#fff', fontSize: '0.88rem', color: '#636E72', boxShadow: '0 2px 8px rgba(0,0,0,0.04)', transition: 'all 0.2s', border: '1px solid #E2E8F0' };
@@ -113,6 +115,10 @@ export default function Home() {
             <p style={subtitle}>{homeContent.heroSubtitle}</p>
             <p style={desc}>{homeContent.heroDesc}</p>
             <div style={searchWrap}><SearchBar variant="hero" /></div>
+            <div style={navTip}>
+              <span style={navTipIcon}>💡</span>
+              <span>点上方中间「<b>菜单</b>」看全部内容，或者直接搜关键词（比如"宿舍""快递"）</span>
+            </div>
           </ScrollReveal>
 
           {/* 热门问题 */}
