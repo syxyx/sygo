@@ -77,20 +77,14 @@ export default function Life() {
                     </div>
                   )}
                   {/* 专业分配 */}
-                  {apt.majors.male.length > 0 && (
+                  {apt.majors && apt.majors.length > 0 && (
                     <div style={{ marginBottom: 8 }}>
-                      <span style={{ fontSize: '0.8rem', fontWeight: 700, color: '#1A73E8', marginRight: 8 }}>男生 👨</span>
-                      <span style={{ fontSize: '0.82rem', color: '#636E72', lineHeight: 1.8 }}>{apt.majors.male.join('、')}</span>
+                      <span style={{ fontSize: '0.8rem', fontWeight: 700, color: '#1A73E8', marginRight: 8 }}>🏫 分配专业</span>
+                      <span style={{ fontSize: '0.82rem', color: '#636E72', lineHeight: 1.8 }}>{apt.majors.join('、')}</span>
                     </div>
                   )}
-                  {apt.majors.female.length > 0 && (
-                    <div style={{ marginBottom: 8 }}>
-                      <span style={{ fontSize: '0.8rem', fontWeight: 700, color: '#E53E3E', marginRight: 8 }}>女生 👩</span>
-                      <span style={{ fontSize: '0.82rem', color: '#636E72', lineHeight: 1.8 }}>{apt.majors.female.join('、')}</span>
-                    </div>
-                  )}
-                  {apt.majors.note && (
-                    <p style={{ fontSize: '0.78rem', color: '#A0AEC0', marginTop: 6, fontStyle: 'italic' }}>📌 {apt.majors.note}</p>
+                  {apt.note && (
+                    <p style={{ fontSize: '0.78rem', color: '#A0AEC0', marginTop: 6, fontStyle: 'italic' }}>📌 {apt.note}</p>
                   )}
                 </div>
               ))}
