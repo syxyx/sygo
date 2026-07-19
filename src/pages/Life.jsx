@@ -68,7 +68,10 @@ export default function Life() {
                   {/* 公寓图片 */}
                   {apt.image && (
                     <div style={{ marginBottom: 14, borderRadius: 12, overflow: 'hidden', cursor: 'pointer' }} onClick={() => setLightbox(apt.image)}>
-                      <img src={apt.image} alt={apt.name} style={{ width: '100%', display: 'block' }} />
+                      <picture>
+                        <source srcSet={apt.image.replace(/\.(jpg|jpeg|png)$/i, '-card.webp')} type="image/webp" />
+                        <img src={apt.image} alt={apt.name} loading="lazy" style={{ width: '100%', display: 'block' }} />
+                      </picture>
                     </div>
                   )}
                   {!apt.image && (
