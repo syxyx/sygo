@@ -126,7 +126,7 @@ export default function Home() {
             <p style={hotLabel}>大家都在问：</p>
             <div style={hotTags}>
               {homeContent.hotQuestions.map((h, i) => (
-                <Link key={i} to={h.to} style={tag}
+                <Link key={i} to={h.to} state={h.anchor ? { anchor: h.anchor } : undefined} style={tag}
                   onMouseEnter={onTagEnter} onMouseLeave={onTagLeave}
                 >{h.q}</Link>
               ))}

@@ -14,12 +14,12 @@ export const homeContent = {
   heroSubtitle: '第一次上大学，是不是有一堆问题？',
   heroDesc: '我也是邵院的学长，当初跟你一样懵。这里整理了你在邵院生活需要的所有东西，有啥不懂的随时问。',
   hotQuestions: [
-    { q: '🛏️ 宿舍到底长啥样？有空调吗？', to: '/life' },
-    { q: '🎒 开学要带什么？哪些东西不用带？', to: '/prepare' },
-    { q: '💪 军训有多累？怎么偷懒？', to: '/prepare' },
-    { q: '🎓 哪个专业好就业？能转专业吗？', to: '/majors' },
-    { q: '⚠️ 开学容易被骗吗？常见套路有哪些？', to: '/pitfalls' },
-    { q: '💰 一个月生活费多少够用？', to: '/life' },
+    { q: '🛏️ 宿舍到底长啥样？有空调吗？', to: '/life', anchor: 'life-dorm' },
+    { q: '🎒 开学要带什么？哪些东西不用带？', to: '/prepare', anchor: 'prepare-checklist' },
+    { q: '💪 军训有多累？怎么偷懒？', to: '/prepare', anchor: 'prepare-military' },
+    { q: '🎓 哪个专业好就业？能转专业吗？', to: '/majors', anchor: 'major-transfer' },
+    { q: '⚠️ 开学容易被骗吗？常见套路有哪些？', to: '/pitfalls', anchor: 'pitfall-0-0' },
+    { q: '💰 一个月生活费多少够用？', to: '/life', anchor: 'life-money' },
   ],
   features: [
     { icon: '🎒', title: '入学准备', desc: '带什么、不带什么、报到全流程', to: '/prepare' },
